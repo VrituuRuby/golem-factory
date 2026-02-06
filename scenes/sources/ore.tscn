@@ -1,16 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://gspb3kwsy36c"]
+[gd_scene load_steps=5 format=3 uid="uid://gspb3kwsy36c"]
 
-[ext_resource type="Script" uid="uid://col5p4f01es84" path="res://scripts/ore.gd" id="1_84iim"]
+[ext_resource type="Script" uid="uid://col5p4f01es84" path="res://scenes/sources/ore.gd" id="1_84iim"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wbpm2"]
+albedo_color = Color(0.263055, 0.29790342, 0.38774815, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_nnsk1"]
+material = SubResource("StandardMaterial3D_wbpm2")
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_rwgxs"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [node name="Ore" type="StaticBody3D" groups=["resource"]]
+collision_mask = 5
 script = ExtResource("1_84iim")
-available_amount = 15
-init_required_clicks = 30
+available_amount = 1200
+init_required_clicks = 10
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(3.565, 0, 0, 0, 3.565, 0, 0, 0, 3.565, 0, 0.96692085, 0)
@@ -19,3 +24,10 @@ mesh = SubResource("BoxMesh_nnsk1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(3.565, 0, 0, 0, 3.565, 0, 0, 0, 3.565, 0, 0.96692085, 0)
 shape = SubResource("ConcavePolygonShape3D_rwgxs")
+
+[node name="Label3D" type="Label3D" parent="."]
+transform = Transform3D(0.9759662, 0, -0.21792181, 0, 1, 0, 0.21792181, 0, 0.9759662, 0, 3.387507, 0)
+billboard = 1
+no_depth_test = true
+text = "300/300"
+font_size = 72

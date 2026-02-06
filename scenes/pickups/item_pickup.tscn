@@ -1,16 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://di0mf7ym06ngw"]
+[gd_scene load_steps=6 format=3 uid="uid://di0mf7ym06ngw"]
 
-[ext_resource type="Script" uid="uid://bmoyh8o25rq7d" path="res://scripts/item_pickup.gd" id="1_lgqak"]
+[ext_resource type="Script" uid="uid://bmoyh8o25rq7d" path="res://scenes/pickups/item_pickup.gd" id="1_o5jsg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5jsg"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_12acp"]
+material = SubResource("StandardMaterial3D_o5jsg")
 size = Vector3(0.25, 0.25, 0.25)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lgqak"]
 radius = 0.25
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_o5jsg"]
+height = 0.4140625
+radius = 0.84814453
+
 [node name="ItemPickup" type="RigidBody3D" node_paths=PackedStringArray("mesh", "collectableTimer")]
 collision_layer = 4
-script = ExtResource("1_lgqak")
+script = ExtResource("1_o5jsg")
 mesh = NodePath("MeshInstance3D")
 collectableTimer = NodePath("CollectableTimer")
 
@@ -25,7 +32,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("SphereShape3D_lgqak")
+shape = SubResource("CylinderShape3D_o5jsg")
 
 [node name="CollectableTimer" type="Timer" parent="."]
 wait_time = 0.5

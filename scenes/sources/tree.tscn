@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://b58de1ux5lkn"]
+[gd_scene load_steps=8 format=3 uid="uid://b58de1ux5lkn"]
 
 [ext_resource type="Script" uid="uid://cvaexff8whhh7" path="res://scenes/sources/tree.gd" id="1_143eb"]
+[ext_resource type="Resource" uid="uid://b0fufm160to34" path="res://scenes/items/wood.tres" id="2_143eb"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_8irr8"]
-height = 8.246094
-radius = 0.31689453
+height = 10.246582
+radius = 0.5317383
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3pdv"]
 albedo_color = Color(0.5562579, 0.29856762, 0.18325436, 1)
@@ -25,24 +26,27 @@ height = 3.887
 
 [node name="Tree" type="StaticBody3D"]
 script = ExtResource("1_143eb")
+output = ExtResource("2_143eb")
+available_amount = 1
+required_word = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.624403, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3119574, 0)
 shape = SubResource("CylinderShape3D_8irr8")
 
 [node name="Body" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9164505, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6669922, 0)
 mesh = SubResource("CylinderMesh_tphbg")
 
 [node name="Leaf" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4682627, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2188044, 0)
 mesh = SubResource("CylinderMesh_8obal")
 
 [node name="Leaf3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0051140785, 7.6069546, 0.012048721)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0051140785, 7.5407133, 0.012048721)
 mesh = SubResource("CylinderMesh_8obal")
 skeleton = NodePath("../Leaf2")
 
 [node name="Leaf2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0051140785, 5.9837728, 0.012048721)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0051140785, 5.7724185, 0.012048721)
 mesh = SubResource("CylinderMesh_8obal")

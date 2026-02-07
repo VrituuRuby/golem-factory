@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://gspb3kwsy36c"]
+[gd_scene load_steps=6 format=3 uid="uid://gspb3kwsy36c"]
 
 [ext_resource type="Script" uid="uid://col5p4f01es84" path="res://scenes/sources/ore.gd" id="1_84iim"]
+[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://scenes/items/stone.tres" id="2_afn3p"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wbpm2"]
 albedo_color = Color(0.263055, 0.29790342, 0.38774815, 1)
@@ -14,8 +15,7 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 [node name="Ore" type="StaticBody3D" groups=["resource"]]
 collision_mask = 5
 script = ExtResource("1_84iim")
-available_amount = 1200
-init_required_clicks = 10
+output = ExtResource("2_afn3p")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(3.565, 0, 0, 0, 3.565, 0, 0, 0, 3.565, 0, 0.96692085, 0)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://di0mf7ym06ngw"]
 
-[ext_resource type="Script" uid="uid://bmoyh8o25rq7d" path="res://scenes/pickups/item_pickup.gd" id="1_o5jsg"]
+[ext_resource type="Script" uid="uid://bmoyh8o25rq7d" path="res://scenes/item_pickup/item_pickup.gd" id="1_o5jsg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5jsg"]
 

@@ -16,15 +16,13 @@ var inCollectableArea := false
 func _ready() -> void:
 	collectableTimer.start()
 	var randomDir := Vector3(randf_range(-1, 1), 1, randf_range(-1, 1))
-	print(randomDir)
 	axis_lock_angular_y = true
 	axis_lock_angular_x = true
 	axis_lock_angular_z = true
 
 	apply_central_impulse(randomDir.normalized() * spawn_force)
 
-	var mat = mesh.get_active_material(0)
-	mat.albedo_color = item_data.mesh_color
+	mesh.material_overlay = item_data.material
 
 func _process(delta: float) -> void:
 	time += delta

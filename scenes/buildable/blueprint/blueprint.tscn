@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx17r7h7p7jbc"]
+
+[ext_resource type="Script" uid="uid://7te3qg1pyb8v" path="res://scenes/buildable/blueprint/blueprint.gd" id="1_fc7bq"]
+
+[node name="Blueprint" type="StaticBody3D"]
+script = ExtResource("1_fc7bq")
+
+[node name="Area3D" type="Area3D" parent="."]

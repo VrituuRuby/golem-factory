@@ -1,0 +1,90 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbaespd6qnolr"]
+
+[sub_resource type="GDScript" id="GDScript_hfknl"]
+script/source = "extends Panel
+
+@onready var name_label = $HBoxContainer/VBoxContainer/Title as Label
+@onready var rich_text = $HBoxContainer/VBoxContainer/RichTextLabel as RichTextLabel
+
+@export var build_button: Button
+
+signal select_build(build_data: BuildData)
+
+var _build_data: BuildData
+
+var can_build = true
+
+func setup(build_data: BuildData):
+	_build_data = build_data
+	
+	if not is_node_ready():
+		await ready
+	
+	name_label.text = _build_data.name;
+	
+	for item in _build_data.input.keys():
+		var required = _build_data.input[item]
+		
+		if not Inventory.has_item(item, required):
+			can_build = false
+			break
+	
+	build_button.disabled = not can_build
+	build_button.pressed.connect(func (): 
+		select_build.emit(build_data))
+	_handle_requirements()
+	
+func _handle_requirements(): 
+	rich_text.text = \"[font_size=12]\"
+	
+	for item in _build_data.input.keys():
+		var amount = _build_data.input[item]
+		rich_text.append_text(\"%d %s\\n\" % [amount, item.name])
+	
+	rich_text.append_text(\"%d clicks\" % [_build_data.required_work])
+"
+
+[node name="BlueprintOption" type="Panel" node_paths=PackedStringArray("build_button")]
+custom_minimum_size = Vector2(150, 100)
+offset_right = 202.0
+offset_bottom = 122.0
+script = SubResource("GDScript_hfknl")
+build_button = NodePath("HBoxContainer/Button")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -47.5
+offset_right = 84.0
+offset_bottom = 47.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Title Station"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=12]Requires:
+5 wood
+5 stone
+10 clicks"
+fit_content = true
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Build"

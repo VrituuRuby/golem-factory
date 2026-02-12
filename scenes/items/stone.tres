@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://btujepeutb7ge"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://btujepeutb7ge"]
 
 [ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://scripts/data/item_data.gd" id="1_jmuhp"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jmuhp"]
+albedo_color = Color(0.2627451, 0.29803923, 0.3882353, 1)
+
 [resource]
 script = ExtResource("1_jmuhp")
-id = "stone"
 name = "Stone"
-mesh_color = Color(0.2927898, 0.32940754, 0.43801382, 1)
+material = SubResource("StandardMaterial3D_jmuhp")

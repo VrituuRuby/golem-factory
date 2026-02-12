@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmv6kbt6wusq2"]
+
+[ext_resource type="ArrayMesh" uid="uid://biwdur8n5w1hn" path="res://assets/placeholder/crafting_station.obj" id="1_k04gj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uvf4b"]
+size = Vector3(2, 1, 1)
+
+[node name="CraftingStation" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_uvf4b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0015773773, 0)
+mesh = ExtResource("1_k04gj")

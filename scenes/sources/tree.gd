@@ -10,13 +10,11 @@ func _on_work_finished(_pos: Vector3):
 		item.spawn_force = 1
 		item.global_position = _spawn_item_height(global_position, i)
 
-		get_tree().get_root().add_child(item)
+		get_parent().add_child(item)
 
 	queue_free()
-	pass
 	
 
 func _spawn_item_height(pos: Vector3, index: int):
-	var step_heigth = 0.5;
-
-	return Vector3(pos.x, pos.y + step_heigth * index, pos.z)
+	var step_height = 1;
+	return Vector3(pos.x, pos.y + step_height * index, pos.z)

@@ -1,7 +1,7 @@
 class_name WorkableSource
 extends Workable
 
-var item_pickup = preload("res://scenes/pickups/item_pickup.tscn")
+var item_pickup = preload("res://scenes/item_pickup/item_pickup.tscn")
 
 @export var output: ItemData;
 @export var available_amount: int = 1000;

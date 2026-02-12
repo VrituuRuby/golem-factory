@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BuildData" load_steps=6 format=3 uid="uid://b85jsel4f1pcv"]
+
+[ext_resource type="PackedScene" uid="uid://cmv6kbt6wusq2" path="res://scenes/buildable/stations/crafting_station.tscn" id="1_chngf"]
+[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://scripts/data/item_data.gd" id="1_fq1jt"]
+[ext_resource type="Script" uid="uid://m6q54fj73t3d" path="res://scripts/data/build_data.gd" id="2_7mukv"]
+[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://scenes/items/stone.tres" id="3_mhm6f"]
+[ext_resource type="Resource" uid="uid://b0fufm160to34" path="res://scenes/items/wood.tres" id="4_yd2or"]
+
+[resource]
+script = ExtResource("2_7mukv")
+build = ExtResource("1_chngf")
+input = Dictionary[ExtResource("1_fq1jt"), int]({
+ExtResource("3_mhm6f"): 5,
+ExtResource("4_yd2or"): 5
+})
+name = "Crafting"
+required_work = 10
+metadata/_custom_type_script = "uid://m6q54fj73t3d"

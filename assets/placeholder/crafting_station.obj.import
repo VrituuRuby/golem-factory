@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://biwdur8n5w1hn"
+path="res://.godot/imported/crafting_station.obj-fbac89b9193786c63ee3b05afd25d0dd.mesh"
+
+[deps]
+
+files=["res://.godot/imported/crafting_station.obj-fbac89b9193786c63ee3b05afd25d0dd.mesh"]
+
+source_file="res://assets/placeholder/crafting_station.obj"
+dest_files=["res://.godot/imported/crafting_station.obj-fbac89b9193786c63ee3b05afd25d0dd.mesh", "res://.godot/imported/crafting_station.obj-fbac89b9193786c63ee3b05afd25d0dd.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

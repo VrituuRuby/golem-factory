@@ -3,7 +3,7 @@ class_name PlayerClass
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
-const GRAVITY = 9.8;
+const GRAVITY = 12;
 
 const SENSITIVITY = 0.005;
 
@@ -20,14 +20,14 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion && Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		head.rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-45), deg_to_rad(60))
 
 func _process(delta: float) -> void:
 	if(Input.is_action_just_pressed("action")):
-		_mine()
+		_do_work()
 		pass
 
 func _physics_process(delta: float) -> void:
@@ -66,7 +66,7 @@ func _headbob(t: float) -> Vector3:
 	pos.x = cos(t * BOB_FREQUENCY / 2) * BOB_AMPLITUDE
 	return pos
 
-func _mine() -> void:
+func _do_work() -> void:
 	if(not ray_cast.is_colliding()): return
 	var collider := ray_cast.get_collider() as Node
 	if(collider is Workable):

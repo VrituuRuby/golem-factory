@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://b0fufm160to34"]
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://b0fufm160to34"]
 
 [ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://scripts/data/item_data.gd" id="1_h8bct"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8bct"]
+albedo_color = Color(0.5568628, 0.29803923, 0.18431373, 1)
+
 [resource]
 script = ExtResource("1_h8bct")
-id = "wood"
 name = "Wood"
-mesh_color = Color(0.51551205, 0.28811994, 0.15752906, 1)
+material = SubResource("StandardMaterial3D_h8bct")

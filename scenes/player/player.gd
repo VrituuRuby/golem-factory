@@ -16,6 +16,8 @@ var t_bob = 0.0;
 @export var camera: Camera3D
 @export var ray_cast: RayCast3D
 
+signal display_progress(workable: Workable)
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -58,6 +60,7 @@ func _physics_process(delta: float) -> void:
 	camera.transform.origin = _headbob(t_bob)
 
 	move_and_slide()
+	_get_progress()
 
 
 func _headbob(t: float) -> Vector3:
@@ -72,3 +75,12 @@ func _do_work() -> void:
 	if(collider is Workable):
 		var collision_position := ray_cast.get_collision_point()
 		collider._do_work(1,collision_position)
+
+
+func _get_progress():
+	var collider := ray_cast.get_collider() as Node
+	if(collider is Workable):
+		display_progress.emit(collider)
+	else: 
+		display_progress.emit(null)
+

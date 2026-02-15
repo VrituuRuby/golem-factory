@@ -7,6 +7,8 @@ const LABEL = preload("res://scenes/ui/resourse_label.tscn")
 @onready var _blueprints_list: VBoxContainer = $Panel/BlueprintsList
 @onready var _blueprint_option_scene: PackedScene = preload("res://scenes/ui/blueprint_option.tscn")
 
+@onready var _progress_bar: TextureProgressBar = $TextureProgressBar
+
 @export var builds_data: Array[BuildData]  
 
 signal select_blueprint(build_data: BuildData)
@@ -59,3 +61,13 @@ func _toggle_build_panel() -> void:
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		_build_panel.visible = false;
+
+
+func _on_character_body_3d_display_progress(workable: Workable) -> void:
+	if workable == null:
+		_progress_bar.visible = false
+		_progress_bar.value = 0
+	else: 
+		_progress_bar.visible = true
+		var progress = float(workable.work_counter) / float(workable.required_work) * 100.0
+		_progress_bar.value = progress

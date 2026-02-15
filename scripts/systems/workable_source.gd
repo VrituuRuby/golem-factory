@@ -13,6 +13,7 @@ func _ready() -> void:
 	current_amount = available_amount
 
 func _on_work_finished(pos: Vector3):
+	super._on_work_finished(pos)
 	available_amount -= 1
 
 	var item = item_pickup.instantiate() as ItemPickup

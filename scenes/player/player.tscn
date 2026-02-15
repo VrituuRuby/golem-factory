@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://83wfhqbt1ff0"]
+[gd_scene load_steps=13 format=3 uid="uid://83wfhqbt1ff0"]
 
 [ext_resource type="Script" uid="uid://btu8t8ahjulr4" path="res://scenes/player/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cymvf3d2bjw77" path="res://scenes/player/ui.gd" id="2_dovo2"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://dbaespd6qnolr" path="res://scenes/ui/blueprint_option.tscn" id="4_lvxji"]
 [ext_resource type="Script" uid="uid://m6q54fj73t3d" path="res://scripts/data/build_data.gd" id="5_0owmy"]
 [ext_resource type="Resource" uid="uid://b85jsel4f1pcv" path="res://scenes/buildable/stations/crafting_station.tres" id="6_qek5x"]
+[ext_resource type="Texture2D" uid="uid://ko5gsqgjig7m" path="res://assets/ui/under.png" id="8_h17s1"]
+[ext_resource type="Texture2D" uid="uid://socuvr51almk" path="res://assets/ui/progress.png" id="9_je7p5"]
+[ext_resource type="Texture2D" uid="uid://dhs7iqw66rm15" path="res://assets/ui/crosshair.png" id="10_fm80t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rwgxs"]
 
@@ -105,6 +108,45 @@ grow_vertical = 2
 [node name="BlueprintOption" parent="CanvasLayer/Control/Panel/BlueprintsList" instance=ExtResource("4_lvxji")]
 layout_mode = 2
 
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.185, 0.185)
+pivot_offset = Vector2(128, 128)
+fill_mode = 4
+texture_under = ExtResource("8_h17s1")
+texture_progress = ExtResource("9_je7p5")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+modulate = Color(1, 1, 1, 0.24313726)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.0
+offset_top = -19.0
+offset_right = 19.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(19, 19)
+texture = ExtResource("10_fm80t")
+stretch_mode = 5
+
+[connection signal="display_progress" from="." to="CanvasLayer/Control" method="_on_character_body_3d_display_progress"]
 [connection signal="select_blueprint" from="CanvasLayer/Control" to="Node" method="_on_control_select_blueprint"]
 
 [editable path="CanvasLayer/Control/Panel/BlueprintsList/BlueprintOption"]

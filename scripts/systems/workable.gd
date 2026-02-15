@@ -11,8 +11,8 @@ func _do_work(work_force: int = 1, pos: Vector3 = Vector3.ZERO):
 
 	work_counter += work_force
 	if work_counter >= required_work:
-		work_counter = 0
+		work_counter = required_work
 		_on_work_finished(pos)
 
 func _on_work_finished(pos: Vector3):
-	pass
+	work_counter = 0

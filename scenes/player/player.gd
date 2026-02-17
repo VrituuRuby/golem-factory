@@ -5,7 +5,7 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const GRAVITY = 12;
 
-const SENSITIVITY = 0.005;
+const SENSITIVITY = 0.0025;
 
 # HEAD BOB VARIABLES
 const BOB_FREQUENCY = 2.5;
@@ -16,6 +16,8 @@ var t_bob = 0.0;
 @export var camera: Camera3D
 @export var ray_cast: RayCast3D
 
+@onready var golem_manager: GolemManager = $GolemManager
+
 signal display_progress(workable: Workable)
 
 func _ready():
@@ -23,14 +25,16 @@ func _ready():
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion && Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		head.rotate_y(-event.relative.x * SENSITIVITY)
+		rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-45), deg_to_rad(60))
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 func _process(delta: float) -> void:
 	if(Input.is_action_just_pressed("action")):
 		_do_work()
 		pass
+	if Input.is_action_just_pressed("sub_action"):
+		_handle_golem()
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -44,7 +48,7 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("left", "right", "up", "down")
-	var direction := (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	if is_on_floor():
 		if direction:
 			velocity.x = direction.x * SPEED
@@ -84,3 +88,15 @@ func _get_progress():
 	else: 
 		display_progress.emit(null)
 
+
+func _handle_golem() -> void:
+	if(not ray_cast.is_colliding()): return
+
+	var collider := ray_cast.get_collider() as Node
+	print(collider)
+	if golem_manager.selected_golem == null: 
+		if(collider is GolemClass):
+			golem_manager.set_golem(collider as GolemClass)
+	else:
+		if(collider is Workable):
+			golem_manager.assign_workable(collider as Workable)

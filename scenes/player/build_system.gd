@@ -1,4 +1,5 @@
 extends Node
+class_name BuildSystem
 
 @export var hand_target: Marker3D 
 @export var blueprint_scene: PackedScene

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BuildData" load_steps=5 format=3 uid="uid://cr85p45gtmisd"]
+
+[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://scripts/data/item_data.gd" id="1_1gm6k"]
+[ext_resource type="PackedScene" uid="uid://5atsml03bxwc" path="res://scenes/golem/golem.tscn" id="1_3q7h5"]
+[ext_resource type="Script" uid="uid://m6q54fj73t3d" path="res://scripts/data/build_data.gd" id="2_xpl1r"]
+[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://scenes/items/stone.tres" id="3_a4kja"]
+
+[resource]
+script = ExtResource("2_xpl1r")
+build = ExtResource("1_3q7h5")
+input = Dictionary[ExtResource("1_1gm6k"), int]({
+ExtResource("3_a4kja"): 10
+})
+name = "Golem"
+required_work = 10
+metadata/_custom_type_script = "uid://m6q54fj73t3d"

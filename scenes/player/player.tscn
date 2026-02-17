@@ -1,12 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://83wfhqbt1ff0"]
+[gd_scene load_steps=15 format=3 uid="uid://83wfhqbt1ff0"]
 
 [ext_resource type="Script" uid="uid://btu8t8ahjulr4" path="res://scenes/player/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cymvf3d2bjw77" path="res://scenes/player/ui.gd" id="2_dovo2"]
 [ext_resource type="Script" uid="uid://bink5wgcy4brs" path="res://scenes/player/build_system.gd" id="2_gmlin"]
 [ext_resource type="PackedScene" uid="uid://dx17r7h7p7jbc" path="res://scenes/buildable/blueprint/blueprint.tscn" id="3_p47bc"]
+[ext_resource type="Script" uid="uid://dvtaudri20w56" path="res://scripts/systems/golem_manager.gd" id="4_fm80t"]
 [ext_resource type="PackedScene" uid="uid://dbaespd6qnolr" path="res://scenes/ui/blueprint_option.tscn" id="4_lvxji"]
 [ext_resource type="Script" uid="uid://m6q54fj73t3d" path="res://scripts/data/build_data.gd" id="5_0owmy"]
 [ext_resource type="Resource" uid="uid://b85jsel4f1pcv" path="res://scenes/buildable/stations/crafting_station.tres" id="6_qek5x"]
+[ext_resource type="Resource" uid="uid://cr85p45gtmisd" path="res://scenes/golem/golem.tres" id="7_je7p5"]
 [ext_resource type="Texture2D" uid="uid://ko5gsqgjig7m" path="res://assets/ui/under.png" id="8_h17s1"]
 [ext_resource type="Texture2D" uid="uid://socuvr51almk" path="res://assets/ui/progress.png" id="9_je7p5"]
 [ext_resource type="Texture2D" uid="uid://dhs7iqw66rm15" path="res://assets/ui/crosshair.png" id="10_fm80t"]
@@ -22,10 +24,13 @@ head = NodePath("Head")
 camera = NodePath("Head/Camera3D")
 ray_cast = NodePath("Head/Camera3D/RayCast3D")
 
-[node name="Node" type="Node" parent="." node_paths=PackedStringArray("hand_target")]
+[node name="BuildSystem" type="Node" parent="." node_paths=PackedStringArray("hand_target")]
 script = ExtResource("2_gmlin")
 hand_target = NodePath("../Head/Camera3D/SpringArm3D/HandTarget")
 blueprint_scene = ExtResource("3_p47bc")
+
+[node name="GolemManager" type="Node" parent="."]
+script = ExtResource("4_fm80t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -50,6 +55,7 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -
 
 [node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
 target_position = Vector3(0, 0, -5)
+collision_mask = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -62,7 +68,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_dovo2")
-builds_data = Array[ExtResource("5_0owmy")]([ExtResource("6_qek5x")])
+builds_data = Array[ExtResource("5_0owmy")]([ExtResource("6_qek5x"), ExtResource("7_je7p5")])
 
 [node name="InventoryList" type="VBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -128,7 +134,6 @@ texture_under = ExtResource("8_h17s1")
 texture_progress = ExtResource("9_je7p5")
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
-modulate = Color(1, 1, 1, 0.24313726)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -147,6 +152,6 @@ texture = ExtResource("10_fm80t")
 stretch_mode = 5
 
 [connection signal="display_progress" from="." to="CanvasLayer/Control" method="_on_character_body_3d_display_progress"]
-[connection signal="select_blueprint" from="CanvasLayer/Control" to="Node" method="_on_control_select_blueprint"]
+[connection signal="select_blueprint" from="CanvasLayer/Control" to="BuildSystem" method="_on_control_select_blueprint"]
 
 [editable path="CanvasLayer/Control/Panel/BlueprintsList/BlueprintOption"]

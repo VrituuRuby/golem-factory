@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://83wfhqbt1ff0"]
+[gd_scene format=3 uid="uid://83wfhqbt1ff0"]
 
 [ext_resource type="Script" uid="uid://btu8t8ahjulr4" path="res://scenes/player/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://cymvf3d2bjw77" path="res://scenes/player/ui.gd" id="2_dovo2"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://b85jsel4f1pcv" path="res://scenes/buildable/stations/crafting_station.tres" id="6_qek5x"]
 [ext_resource type="Resource" uid="uid://cr85p45gtmisd" path="res://scenes/golem/golem.tres" id="7_je7p5"]
 [ext_resource type="Texture2D" uid="uid://ko5gsqgjig7m" path="res://assets/ui/under.png" id="8_h17s1"]
+[ext_resource type="Resource" uid="uid://bmkiuyvkkjetx" path="res://scenes/buildable/stockpile/stockpile_recipe.tres" id="9_gx1jg"]
 [ext_resource type="Texture2D" uid="uid://socuvr51almk" path="res://assets/ui/progress.png" id="9_je7p5"]
 [ext_resource type="Texture2D" uid="uid://dhs7iqw66rm15" path="res://assets/ui/crosshair.png" id="10_fm80t"]
 
@@ -17,49 +18,49 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4wyf3"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("head", "camera", "ray_cast") groups=["player"]]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=399614092 node_paths=PackedStringArray("head", "camera", "ray_cast") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_3vyb7")
 head = NodePath("Head")
 camera = NodePath("Head/Camera3D")
 ray_cast = NodePath("Head/Camera3D/RayCast3D")
 
-[node name="BuildSystem" type="Node" parent="." node_paths=PackedStringArray("hand_target")]
+[node name="BuildSystem" type="Node" parent="." unique_id=2122088186 node_paths=PackedStringArray("hand_target")]
 script = ExtResource("2_gmlin")
 hand_target = NodePath("../Head/Camera3D/SpringArm3D/HandTarget")
 blueprint_scene = ExtResource("3_p47bc")
 
-[node name="GolemManager" type="Node" parent="."]
+[node name="GolemManager" type="Node" parent="." unique_id=972232288]
 script = ExtResource("4_fm80t")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=601069637]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_rwgxs")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=741087258]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 mesh = SubResource("CapsuleMesh_4wyf3")
 
-[node name="Head" type="Node3D" parent="."]
+[node name="Head" type="Node3D" parent="." unique_id=1952626167]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Head"]
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=874492517]
 
-[node name="SpringArm3D" type="SpringArm3D" parent="Head/Camera3D"]
+[node name="SpringArm3D" type="SpringArm3D" parent="Head/Camera3D" unique_id=373286888]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 spring_length = 5.0
 
-[node name="HandTarget" type="Marker3D" parent="Head/Camera3D/SpringArm3D"]
+[node name="HandTarget" type="Marker3D" parent="Head/Camera3D/SpringArm3D" unique_id=8264253]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -1.5, 4.984)
 
-[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D"]
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D" unique_id=1242818013]
 target_position = Vector3(0, 0, -5)
-collision_mask = 3
+collision_mask = 15
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=217640580]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=588952744]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -68,9 +69,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_dovo2")
-builds_data = Array[ExtResource("5_0owmy")]([ExtResource("6_qek5x"), ExtResource("7_je7p5")])
+builds_data = Array[ExtResource("5_0owmy")]([ExtResource("6_qek5x"), ExtResource("7_je7p5"), ExtResource("9_gx1jg")])
 
-[node name="InventoryList" type="VBoxContainer" parent="CanvasLayer/Control"]
+[node name="InventoryList" type="VBoxContainer" parent="CanvasLayer/Control" unique_id=1793473463]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -82,7 +83,7 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="Panel" type="Panel" parent="CanvasLayer/Control"]
+[node name="Panel" type="Panel" parent="CanvasLayer/Control" unique_id=162366787]
 visible = false
 layout_mode = 1
 anchors_preset = 4
@@ -93,7 +94,7 @@ offset_right = 217.0
 offset_bottom = 268.0
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/Panel"]
+[node name="Label" type="Label" parent="CanvasLayer/Control/Panel" unique_id=725534434]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -102,7 +103,7 @@ grow_horizontal = 2
 text = "Construction Panel"
 horizontal_alignment = 1
 
-[node name="BlueprintsList" type="VBoxContainer" parent="CanvasLayer/Control/Panel"]
+[node name="BlueprintsList" type="VBoxContainer" parent="CanvasLayer/Control/Panel" unique_id=414566216]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -111,10 +112,10 @@ offset_top = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="BlueprintOption" parent="CanvasLayer/Control/Panel/BlueprintsList" instance=ExtResource("4_lvxji")]
+[node name="BlueprintOption" parent="CanvasLayer/Control/Panel/BlueprintsList" unique_id=1048545761 instance=ExtResource("4_lvxji")]
 layout_mode = 2
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control" unique_id=328410534]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -133,7 +134,7 @@ fill_mode = 4
 texture_under = ExtResource("8_h17s1")
 texture_progress = ExtResource("9_je7p5")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=1184661440]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -150,6 +151,22 @@ scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(19, 19)
 texture = ExtResource("10_fm80t")
 stretch_mode = 5
+
+[node name="ActionTextLabel" type="Label" parent="CanvasLayer/Control" unique_id=1976482660]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -51.0
+offset_right = 43.5
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Action Text"
+horizontal_alignment = 1
 
 [connection signal="display_progress" from="." to="CanvasLayer/Control" method="_on_character_body_3d_display_progress"]
 [connection signal="select_blueprint" from="CanvasLayer/Control" to="BuildSystem" method="_on_control_select_blueprint"]

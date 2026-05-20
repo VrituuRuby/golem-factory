@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BuildData" load_steps=6 format=3 uid="uid://b85jsel4f1pcv"]
+[gd_resource type="Resource" script_class="BuildData" format=3 uid="uid://b85jsel4f1pcv"]
 
 [ext_resource type="PackedScene" uid="uid://cmv6kbt6wusq2" path="res://scenes/buildable/stations/crafting_station.tscn" id="1_chngf"]
 [ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://scripts/data/item_data.gd" id="1_fq1jt"]
@@ -10,8 +10,8 @@
 script = ExtResource("2_7mukv")
 build = ExtResource("1_chngf")
 input = Dictionary[ExtResource("1_fq1jt"), int]({
-ExtResource("3_mhm6f"): 5,
-ExtResource("4_yd2or"): 5
+ExtResource("3_mhm6f"): 10,
+ExtResource("4_yd2or"): 20
 })
 name = "Crafting"
 required_work = 10

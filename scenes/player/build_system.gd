@@ -26,18 +26,19 @@ func _handle_input():
 
 	if Input.is_action_just_pressed("action") && Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if blueprint.place():
+			blueprint.rotation = desired_rotation
 			for item in blueprint.build_data.input.keys():
 				var amount = blueprint.build_data.input[item]
 				Inventory.remove_item(item, amount)
 			blueprint = null;
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if blueprint == null: return
 
 	var snap_pos: Vector3 = snap_to_grid(hand_target.global_position)
-	blueprint.global_position = lerp(blueprint.global_position, snap_pos, 0.2)
+	blueprint.global_position = lerp(blueprint.global_position, snap_pos, 20 * delta)
 
-	blueprint.rotation.y = lerp_angle(blueprint.rotation.y, desired_rotation.y, 0.5)
+	blueprint.rotation.y = lerp_angle(blueprint.rotation.y, desired_rotation.y, 10 * delta)
 
 	_handle_input()
 

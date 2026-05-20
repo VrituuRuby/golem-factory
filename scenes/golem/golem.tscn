@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://5atsml03bxwc"]
+[gd_scene format=4 uid="uid://5atsml03bxwc"]
 
 [ext_resource type="Script" uid="uid://bm8oc33dqhqc" path="res://scenes/golem/golem.gd" id="1_komo4"]
 
@@ -44,28 +44,42 @@ shadow_mesh = SubResource("ArrayMesh_iabve")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rgatw"]
 radius = 0.234375
-height = 0.9946289
+height = 0.96313477
 
-[node name="Golem" type="CharacterBody3D"]
-collision_layer = 2
+[node name="Golem" type="CharacterBody3D" unique_id=460895056]
+collision_layer = 8
 collision_mask = 3
 script = ExtResource("1_komo4")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." unique_id=1726397447]
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=956048454]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7990669, 0)
 target_position = Vector3(0, 0, -1)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=493554103]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01793331, 0)
 material_override = SubResource("StandardMaterial3D_komo4")
 mesh = SubResource("ArrayMesh_eiu5r")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4654187, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=929609857]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48116577, 0)
 shape = SubResource("CapsuleShape3D_rgatw")
 
-[node name="StateLabel" type="Label3D" parent="."]
+[node name="InfoLabel" type="Label3D" parent="." unique_id=1419482686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.493269, 0)
+visible = false
+billboard = 1
+modulate = Color(0.96139365, 0.9044705, 0, 1)
+text = "Stockpile has no selected item"
+autowrap_mode = 3
+width = 370.0
+metadata/_edit_group_ = true
+
+[node name="StateLabel" type="Label3D" parent="." unique_id=978795403]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.148236, 0)
 billboard = 1
+
+[node name="HoldingItemPosition" type="Marker3D" parent="." unique_id=1655725512]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3005879, 0)

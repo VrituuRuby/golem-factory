@@ -6,6 +6,7 @@ const LABEL = preload("res://scenes/ui/resourse_label.tscn")
 @onready var _build_panel: Panel = $Panel
 @onready var _blueprints_list: VBoxContainer = $Panel/BlueprintsList
 @onready var _blueprint_option_scene: PackedScene = preload("res://scenes/ui/blueprint_option.tscn")
+@onready var _action_label: Label = $ActionTextLabel
 
 @onready var _progress_bar: TextureProgressBar = $TextureProgressBar
 
@@ -17,7 +18,7 @@ var is_build_panel_open := false
 
 func _ready() -> void:
 	Inventory.update.connect(_update_inventory)
-
+	_update_inventory(Inventory.items, null)
 	_update_build_panel()
 
 func _update_build_panel() -> void:
@@ -36,15 +37,17 @@ func _update_build_panel() -> void:
 		)
 		_blueprints_list.add_child(blueprint_option)
 
-func _update_inventory(items: Dictionary) -> void:
+func _update_inventory(items: Dictionary, selected_item: ItemData) -> void:
 	for child in _list.get_children():
 		child.queue_free()
 
 	for item in items.keys():
 		var amount = items[item]
-		var label = LABEL.instantiate()
+		var label: Label = LABEL.instantiate()
 		label.text = "%s: %s" % [item.name, amount]
-		label.modulate = item.material.albedo_color
+		label.label_settings = label.label_settings.duplicate()
+		if item == selected_item:
+			label.label_settings.font_color = Color.YELLOW
 		_list.add_child(label)
 	
 	_update_build_panel()
@@ -63,11 +66,17 @@ func _toggle_build_panel() -> void:
 		_build_panel.visible = false;
 
 
-func _on_character_body_3d_display_progress(workable: Workable) -> void:
-	if workable == null:
+func _on_character_body_3d_display_progress(interactable: Interactable) -> void:
+	if interactable == null:
 		_progress_bar.visible = false
 		_progress_bar.value = 0
-	else: 
+		_action_label.text = ''
+		_action_label.visible = false
+	else:
+		_action_label.text = interactable.action_name
+		_action_label.visible = true
+
+	if interactable is Workable:
 		_progress_bar.visible = true
-		var progress = float(workable.work_counter) / float(workable.required_work) * 100.0
+		var progress = float(interactable.work_counter) / float(interactable.required_work) * 100.0
 		_progress_bar.value = progress

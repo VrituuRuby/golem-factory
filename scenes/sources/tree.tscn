@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://b58de1ux5lkn"]
+[gd_scene format=3 uid="uid://b58de1ux5lkn"]
 
 [ext_resource type="Script" uid="uid://cvaexff8whhh7" path="res://scenes/sources/tree.gd" id="1_143eb"]
 [ext_resource type="Resource" uid="uid://b0fufm160to34" path="res://scenes/items/wood.tres" id="2_143eb"]
@@ -24,30 +24,30 @@ top_radius = 0.0
 bottom_radius = 2.387
 height = 3.887
 
-[node name="Tree" type="StaticBody3D"]
+[node name="Tree" type="StaticBody3D" unique_id=1816445661]
 script = ExtResource("1_143eb")
 output_amount = 10
 output = ExtResource("2_143eb")
 available_amount = 1
-required_word = 3
+action_name = "Chop"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=903266159]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3119574, 0)
 shape = SubResource("CylinderShape3D_8irr8")
 
-[node name="Body" type="MeshInstance3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="." unique_id=1894518652]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6669922, 0)
 mesh = SubResource("CylinderMesh_tphbg")
 
-[node name="Leaf" type="MeshInstance3D" parent="."]
+[node name="Leaf" type="MeshInstance3D" parent="." unique_id=2112180373]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2188044, 0)
 mesh = SubResource("CylinderMesh_8obal")
 
-[node name="Leaf3" type="MeshInstance3D" parent="."]
+[node name="Leaf3" type="MeshInstance3D" parent="." unique_id=1403717693]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0051140785, 7.5407133, 0.012048721)
 mesh = SubResource("CylinderMesh_8obal")
 skeleton = NodePath("../Leaf2")
 
-[node name="Leaf2" type="MeshInstance3D" parent="."]
+[node name="Leaf2" type="MeshInstance3D" parent="." unique_id=2031814072]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0051140785, 5.7724185, 0.012048721)
 mesh = SubResource("CylinderMesh_8obal")

@@ -1,4 +1,4 @@
-extends StaticBody3D
+extends Interactable
 class_name Workable
 
 @export var required_work: int = 10

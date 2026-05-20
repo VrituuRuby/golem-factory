@@ -28,13 +28,25 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotate_y(-event.relative.x * SENSITIVITY)
 		camera.rotate_x(-event.relative.y * SENSITIVITY)
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+	
+	if Input.is_action_just_pressed("slot_1"):
+		Inventory.set_selected_by_index(0)
+
+	if Input.is_action_just_pressed("slot_2"):
+		Inventory.set_selected_by_index(1)
+
+	if event.is_action_pressed("scroll_up"):
+		Inventory.scroll_selected(1)
+
+	if event.is_action_pressed("scroll_down"):
+		Inventory.scroll_selected(-1)
 
 func _process(delta: float) -> void:
 	if(Input.is_action_just_pressed("action")):
-		_do_work()
+		_interact()
 		pass
 	if Input.is_action_just_pressed("sub_action"):
-		_handle_golem()
+		_interact_secondary()
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -73,17 +85,29 @@ func _headbob(t: float) -> Vector3:
 	pos.x = cos(t * BOB_FREQUENCY / 2) * BOB_AMPLITUDE
 	return pos
 
-func _do_work() -> void:
+func _interact() -> void:
 	if(not ray_cast.is_colliding()): return
 	var collider := ray_cast.get_collider() as Node
-	if(collider is Workable):
-		var collision_position := ray_cast.get_collision_point()
-		collider._do_work(1,collision_position)
+	if(collider is Interactable):
+		if (collider is Workable):
+			var collision_position := ray_cast.get_collision_point()
+			collider._do_work(1,collision_position)
+		if (collider is Stockpile):
+			var selected_item := Inventory.selected_item
+			if selected_item:
+				collider.add_item(selected_item)
 
+func _interact_secondary() -> void:
+	if(not ray_cast.is_colliding()): return
+	var collider := ray_cast.get_collider() as Node
+	if collider is Interactable:
+		if collider is Stockpile and not golem_manager.selected_golem:
+			collider.remove_item()
+	_handle_golem()
 
 func _get_progress():
 	var collider := ray_cast.get_collider() as Node
-	if(collider is Workable):
+	if(collider is Interactable):
 		display_progress.emit(collider)
 	else: 
 		display_progress.emit(null)
@@ -100,3 +124,6 @@ func _handle_golem() -> void:
 	else:
 		if(collider is Workable):
 			golem_manager.assign_workable(collider as Workable)
+		if (collider is Stockpile):
+			golem_manager.selected_golem.assign_stockpile(collider as Stockpile)
+			golem_manager.selected_golem = null

@@ -1,17 +1,30 @@
+@tool
 extends RigidBody3D
 class_name ItemPickup
 
 var velocity := Vector3.ZERO
 var spawn_force = 5
 var time = 0
+var is_golem_holding := false
 
 @export var mesh: MeshInstance3D
 @export var collectableTimer: Timer
 
-@export var item_data: ItemData
+@export var item_data: ItemData:
+	set(value):
+		item_data = value
+		_update_visual()
 
 var isCollectable := false
 var inCollectableArea := false
+
+func _update_visual():
+	if not is_inside_tree():
+		return
+		
+	if item_data and mesh:
+		mesh.mesh = item_data.mesh
+
 
 func _ready() -> void:
 	collectableTimer.start()
@@ -20,9 +33,9 @@ func _ready() -> void:
 	axis_lock_angular_x = true
 	axis_lock_angular_z = true
 
-	apply_central_impulse(randomDir.normalized() * spawn_force)
+	_update_visual()
 
-	mesh.material_overlay = item_data.material
+	apply_central_impulse(randomDir.normalized() * spawn_force)
 
 func _process(delta: float) -> void:
 	time += delta

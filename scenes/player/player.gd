@@ -101,6 +101,8 @@ func _interact_secondary() -> void:
 	if(not ray_cast.is_colliding()): return
 	var collider := ray_cast.get_collider() as Node
 	if collider is Interactable:
+		if collider is CraftingStation:
+			collider.add_item(Inventory.selected_item)
 		if collider is Stockpile and not golem_manager.selected_golem:
 			collider.remove_item()
 	_handle_golem()

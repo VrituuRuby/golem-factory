@@ -77,6 +77,7 @@ func _on_character_body_3d_display_progress(interactable: Interactable) -> void:
 		_action_label.visible = true
 
 	if interactable is Workable:
-		_progress_bar.visible = true
-		var progress = float(interactable.work_counter) / float(interactable.required_work) * 100.0
-		_progress_bar.value = progress
+		if interactable.can_work:
+			_progress_bar.visible = true
+			var progress = float(interactable.work_counter) / float(interactable.required_work) * 100.0
+			_progress_bar.value = progress

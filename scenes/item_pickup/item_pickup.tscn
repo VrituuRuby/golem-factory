@@ -1,50 +1,36 @@
 [gd_scene format=3 uid="uid://di0mf7ym06ngw"]
 
 [ext_resource type="Script" uid="uid://bmoyh8o25rq7d" path="res://scenes/item_pickup/item_pickup.gd" id="1_o5jsg"]
-[ext_resource type="Resource" uid="uid://bc08ccvwoefi3" path="res://scenes/items/planks.tres" id="2_nod1e"]
+[ext_resource type="Resource" uid="uid://h1e1qvi7kq7l" path="res://scenes/items/tree_branch.tres" id="2_nod1e"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_78cro"]
-albedo_color = Color(0.9, 0.6348, 0.432, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_aa4y4"]
-material = SubResource("StandardMaterial3D_78cro")
-size = Vector3(0.47, 0.125, 1.59)
+[sub_resource type="CylinderMesh" id="CylinderMesh_7313b"]
+top_radius = 0.01
+bottom_radius = 0.015
+height = 0.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lgqak"]
 radius = 0.25
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_o5jsg"]
-height = 0.4140625
-radius = 0.84814453
-
-[node name="ItemPickup" type="RigidBody3D" unique_id=1795658146 node_paths=PackedStringArray("mesh", "collectableTimer") groups=["item_pickup"]]
+[node name="ItemPickup" type="RigidBody3D" unique_id=1795658146 node_paths=PackedStringArray("mesh") groups=["item_pickup"]]
 collision_layer = 4
+collision_mask = 5
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
+mass = 0.2
 script = ExtResource("1_o5jsg")
 mesh = NodePath("MeshInstance3D")
-collectableTimer = NodePath("CollectableTimer")
 item_data = ExtResource("2_nod1e")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1507732020]
-transform = Transform3D(0.91378707, 0, 0.40619332, 0, 1, 0, -0.40619332, 0, 0.91378707, 0, 0.09863634, 0)
-mesh = SubResource("BoxMesh_aa4y4")
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
+mesh = SubResource("CylinderMesh_7313b")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=79782807]
 shape = SubResource("SphereShape3D_lgqak")
-
-[node name="Area3D" type="Area3D" parent="." unique_id=841857399]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1197571050]
-shape = SubResource("CylinderShape3D_o5jsg")
 
 [node name="CollectableTimer" type="Timer" parent="." unique_id=432921158]
 wait_time = 0.5
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
 [connection signal="timeout" from="CollectableTimer" to="." method="_on_collectable_timer_timeout"]

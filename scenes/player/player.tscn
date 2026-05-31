@@ -71,17 +71,20 @@ mouse_filter = 2
 script = ExtResource("2_dovo2")
 builds_data = Array[ExtResource("5_0owmy")]([ExtResource("6_qek5x"), ExtResource("7_je7p5"), ExtResource("9_gx1jg")])
 
-[node name="InventoryList" type="VBoxContainer" parent="CanvasLayer/Control" unique_id=1793473463]
+[node name="InventorySlots" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=352125726]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -40.0
+offset_left = -20.0
 offset_top = -40.0
-grow_horizontal = 0
+offset_right = 20.0
+grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 8
+alignment = 1
 
 [node name="Panel" type="Panel" parent="CanvasLayer/Control" unique_id=162366787]
 visible = false

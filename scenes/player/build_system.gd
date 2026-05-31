@@ -29,7 +29,7 @@ func _handle_input():
 			blueprint.rotation = desired_rotation
 			for item in blueprint.build_data.input.keys():
 				var amount = blueprint.build_data.input[item]
-				Inventory.remove_item(item, amount)
+				# Inventory.remove_item(item, amount)
 			blueprint = null;
 
 func _process(delta: float) -> void:

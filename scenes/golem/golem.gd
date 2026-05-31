@@ -149,4 +149,4 @@ func move_to(target: Vector3) -> void:
 
 func _on_work_timer_timeout() -> void:
 	work_timer.start()
-	assigned_interactable._do_work(1, ray_cast.get_collision_point())
+	assigned_interactable._do_work(1, ray_cast.get_collision_point(), global_position)

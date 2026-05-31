@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbaespd6qnolr"]
+[gd_scene format=3 uid="uid://dbaespd6qnolr"]
 
 [sub_resource type="GDScript" id="GDScript_hfknl"]
 script/source = "extends Panel
@@ -25,9 +25,9 @@ func setup(build_data: BuildData):
 	for item in _build_data.input.keys():
 		var required = _build_data.input[item]
 		
-		if not Inventory.has_item(item, required):
-			can_build = false
-			break
+		# if not Inventory.has_item(item, required):
+		#	can_build = false
+		#	break
 	
 	build_button.disabled = not can_build
 	build_button.pressed.connect(func (): 
@@ -44,14 +44,14 @@ func _handle_requirements():
 	rich_text.append_text(\"%d clicks\" % [_build_data.required_work])
 "
 
-[node name="BlueprintOption" type="Panel" node_paths=PackedStringArray("build_button")]
+[node name="BlueprintOption" type="Panel" unique_id=640502611 node_paths=PackedStringArray("build_button")]
 custom_minimum_size = Vector2(150, 100)
 offset_right = 202.0
 offset_bottom = 122.0
 script = SubResource("GDScript_hfknl")
 build_button = NodePath("HBoxContainer/Button")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1660438481]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -65,16 +65,16 @@ offset_bottom = 47.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=807881107]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer" unique_id=1658940976]
 layout_mode = 2
 text = "Title Station"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer" unique_id=1144626674]
 layout_mode = 2
 bbcode_enabled = true
 text = "[font_size=12]Requires:
@@ -83,7 +83,7 @@ text = "[font_size=12]Requires:
 10 clicks"
 fit_content = true
 
-[node name="Button" type="Button" parent="HBoxContainer"]
+[node name="Button" type="Button" parent="HBoxContainer" unique_id=2044010083]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0

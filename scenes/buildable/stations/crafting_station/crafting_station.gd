@@ -22,13 +22,12 @@ func add_item(item: ItemData) -> void:
 		print("Item not in recipe")
 		return
 
-
 	var required_amount = recipe_inputs[item]
 	if inventory.get(item, 0) >= required_amount:
 		print("Already have enough")
 		return
 	inventory[item] = inventory.get(item, 0) + 1
-	Inventory.remove_item(item, 1)
+	# Inventory.remove_item(item, 1)
 	update_can_craft()
 	
 func update_can_craft():
@@ -45,7 +44,7 @@ func update_can_craft():
 			can_work = false
 			return
 
-func _on_work_finished(pos: Vector3) -> void:
+func _on_work_finished(pos: Vector3, _entityPos: Vector3 = Vector3.ZERO) -> void:
 	super._on_work_finished(pos)
 
 	for key in selected_recipe.outputs.keys():
@@ -60,5 +59,3 @@ func _on_work_finished(pos: Vector3) -> void:
 
 	inventory.clear()
 	update_can_craft()
-
-

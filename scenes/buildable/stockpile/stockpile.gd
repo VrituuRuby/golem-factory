@@ -34,9 +34,7 @@ func add_item(item: ItemData) -> void:
 
 	if item != stock_item: return
 
-	if not Inventory.has_item(item): return
-
-	Inventory.remove_item(Inventory.selected_item)
+	Inventory.remove_item(Inventory.selected_slot)
 	increase_quantity()
 
 func remove_item() -> void:
@@ -44,5 +42,5 @@ func remove_item() -> void:
 
 	if quantity <= 0: return
 
-	Inventory.add_item(Inventory.selected_item)
+	Inventory.add_item(stock_item)
 	decrease_quantity()

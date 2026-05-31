@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://83wfhqbt1ff0" path="res://scenes/player/player.tscn" id="1_sl2e5"]
 [ext_resource type="PackedScene" uid="uid://gspb3kwsy36c" path="res://scenes/sources/ore.tscn" id="2_1fp7r"]
 [ext_resource type="PackedScene" uid="uid://b58de1ux5lkn" path="res://scenes/sources/tree.tscn" id="3_1fp7r"]
+[ext_resource type="PackedScene" uid="uid://di0mf7ym06ngw" path="res://scenes/item_pickup/item_pickup.tscn" id="4_v5dby"]
+[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://scenes/items/stone.tres" id="5_t5ptc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nnsk1"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -72,16 +74,101 @@ available_amount = 2000
 required_work = 20
 
 [node name="Tree" parent="." unique_id=171395832 instance=ExtResource("3_1fp7r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.8636227, 0.5430458, 3.8587255)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.863623, 0.5430458, 4.8587255)
 
 [node name="Tree2" parent="." unique_id=370030958 instance=ExtResource("3_1fp7r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.700792, 0.5430458, 14.184463)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.700792, 0.5430458, 18.184464)
 
 [node name="Tree3" parent="." unique_id=773914182 instance=ExtResource("3_1fp7r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.632214, 0.5430458, 21.439754)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.632214, 0.5430458, 22.439754)
 
 [node name="Tree4" parent="." unique_id=451069920 instance=ExtResource("3_1fp7r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.887217, 0.5430458, -17.982002)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.887217, 0.5430458, -19.982002)
 
 [node name="Tree5" parent="." unique_id=1988885170 instance=ExtResource("3_1fp7r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.524605, 0.5430458, -17.260254)
+
+[node name="Tree6" parent="." unique_id=1816445661 instance=ExtResource("3_1fp7r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.524605, 0.5430458, -8.260254)
+
+[node name="Tree7" parent="." unique_id=2063742294 instance=ExtResource("3_1fp7r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.524605, 0.5430458, -19.260254)
+
+[node name="Tree8" parent="." unique_id=2067931126 instance=ExtResource("3_1fp7r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.524605, 0.5430458, -10.260254)
+
+[node name="Tree9" parent="." unique_id=165563503 instance=ExtResource("3_1fp7r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.524605, 0.5430458, -24.260254)
+
+[node name="Tree10" parent="." unique_id=308775632 instance=ExtResource("3_1fp7r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.524605, 0.5430458, -27.260254)
+
+[node name="ItemPickup" parent="." unique_id=1795658146 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, 1, -17)
+
+[node name="ItemPickup2" parent="." unique_id=328435598 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, -16)
+
+[node name="ItemPickup3" parent="." unique_id=406383964 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, -16)
+
+[node name="ItemPickup4" parent="." unique_id=1117186224 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, -17)
+
+[node name="ItemPickup5" parent="." unique_id=1454750958 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 1, -19)
+
+[node name="ItemPickup6" parent="." unique_id=815138487 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19, 1, -18)
+
+[node name="ItemPickup7" parent="." unique_id=580702041 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 1, -15)
+
+[node name="ItemPickup8" parent="." unique_id=441638416 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, -17)
+
+[node name="ItemPickup9" parent="." unique_id=1467578215 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, -15)
+
+[node name="ItemPickup10" parent="." unique_id=390819851 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, -15)
+
+[node name="ItemPickup11" parent="." unique_id=521545014 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -6)
+item_data = ExtResource("5_t5ptc")
+
+[node name="ItemPickup12" parent="." unique_id=896211882 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -4)
+item_data = ExtResource("5_t5ptc")
+
+[node name="ItemPickup13" parent="." unique_id=2081166202 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -8)
+item_data = ExtResource("5_t5ptc")
+
+[node name="ItemPickup14" parent="." unique_id=784965102 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -8)
+item_data = ExtResource("5_t5ptc")
+
+[node name="ItemPickup15" parent="." unique_id=184617936 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -9)
+item_data = ExtResource("5_t5ptc")
+
+[node name="ItemPickup16" parent="." unique_id=2001351383 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, -7)
+item_data = ExtResource("5_t5ptc")
+
+[node name="ItemPickup17" parent="." unique_id=191249543 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, -5)
+item_data = ExtResource("5_t5ptc")
+
+[node name="ItemPickup18" parent="." unique_id=1304741275 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -7)
+item_data = ExtResource("5_t5ptc")
+
+[node name="ItemPickup19" parent="." unique_id=972011661 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -4)
+item_data = ExtResource("5_t5ptc")
+
+[node name="ItemPickup20" parent="." unique_id=75349753 instance=ExtResource("4_v5dby")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -4)
+item_data = ExtResource("5_t5ptc")

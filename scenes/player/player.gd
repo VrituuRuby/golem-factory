@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name PlayerClass
 
+const item_pickup = preload("res://scenes/item_pickup/item_pickup.tscn")
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const GRAVITY = 12;
@@ -18,6 +20,8 @@ var t_bob = 0.0;
 
 @onready var golem_manager: GolemManager = $GolemManager
 
+var current_hovered: ItemPickup = null
+
 signal display_progress(workable: Workable)
 
 func _ready():
@@ -30,16 +34,28 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 	
 	if Input.is_action_just_pressed("slot_1"):
-		Inventory.set_selected_by_index(0)
+		Inventory.selected_slot = 0
 
 	if Input.is_action_just_pressed("slot_2"):
-		Inventory.set_selected_by_index(1)
+		Inventory.selected_slot = 1
+
+	if Input.is_action_just_pressed("slot_3"):
+		Inventory.selected_slot = 2
+
+	if Input.is_action_just_pressed("drop"):
+		var item = Inventory.slots[Inventory.selected_slot]
+		if item:
+			var item_pickup = item_pickup.instantiate() as ItemPickup
+			item_pickup.item_data = item
+			item_pickup.global_position = global_position + Vector3(0, 1, 0)
+			get_tree().get_root().add_child(item_pickup)
+			Inventory.remove_selected()
 
 	if event.is_action_pressed("scroll_up"):
-		Inventory.scroll_selected(1)
+		Inventory.scroll_slot(1)
 
 	if event.is_action_pressed("scroll_down"):
-		Inventory.scroll_selected(-1)
+		Inventory.scroll_slot(-1)
 
 func _process(delta: float) -> void:
 	if(Input.is_action_just_pressed("action")):
@@ -47,6 +63,17 @@ func _process(delta: float) -> void:
 		pass
 	if Input.is_action_just_pressed("sub_action"):
 		_interact_secondary()
+
+	var collider := ray_cast.get_collider() as Node
+	if collider != current_hovered:
+		if current_hovered:
+			current_hovered.set_highlight(false)
+
+		current_hovered = null
+
+		if collider is ItemPickup:
+			current_hovered = collider
+			current_hovered.set_highlight(true)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -78,7 +105,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	_get_progress()
 
-
 func _headbob(t: float) -> Vector3:
 	var pos := Vector3.ZERO
 	pos.y = sin(t * BOB_FREQUENCY) * BOB_AMPLITUDE
@@ -88,12 +114,17 @@ func _headbob(t: float) -> Vector3:
 func _interact() -> void:
 	if(not ray_cast.is_colliding()): return
 	var collider := ray_cast.get_collider() as Node
+
+	if collider is ItemPickup:
+		collider.pickup()
+		return;
+
 	if(collider is Interactable):
 		if (collider is Workable):
 			var collision_position := ray_cast.get_collision_point()
-			collider._do_work(1,collision_position)
+			collider._do_work(1,collision_position, global_position)
 		if (collider is Stockpile):
-			var selected_item := Inventory.selected_item
+			var selected_item := Inventory.slots[Inventory.selected_slot]
 			if selected_item:
 				collider.add_item(selected_item)
 
@@ -102,7 +133,7 @@ func _interact_secondary() -> void:
 	var collider := ray_cast.get_collider() as Node
 	if collider is Interactable:
 		if collider is CraftingStation:
-			collider.add_item(Inventory.selected_item)
+			collider.add_item(Inventory.slots[Inventory.selected_slot])
 		if collider is Stockpile and not golem_manager.selected_golem:
 			collider.remove_item()
 	_handle_golem()

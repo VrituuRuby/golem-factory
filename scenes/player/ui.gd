@@ -2,7 +2,7 @@ extends Control
 
 const LABEL = preload("res://scenes/ui/resourse_label.tscn")
 
-@onready var _list: VBoxContainer = $InventoryList
+@onready var _inventory_slots: HBoxContainer = $InventorySlots
 @onready var _build_panel: Panel = $Panel
 @onready var _blueprints_list: VBoxContainer = $Panel/BlueprintsList
 @onready var _blueprint_option_scene: PackedScene = preload("res://scenes/ui/blueprint_option.tscn")
@@ -18,7 +18,7 @@ var is_build_panel_open := false
 
 func _ready() -> void:
 	Inventory.update.connect(_update_inventory)
-	_update_inventory(Inventory.items, null)
+	_update_inventory()
 	_update_build_panel()
 
 func _update_build_panel() -> void:
@@ -37,18 +37,26 @@ func _update_build_panel() -> void:
 		)
 		_blueprints_list.add_child(blueprint_option)
 
-func _update_inventory(items: Dictionary, selected_item: ItemData) -> void:
-	for child in _list.get_children():
+func _update_inventory() -> void:
+	for child in _inventory_slots.get_children():
 		child.queue_free()
 
-	for item in items.keys():
-		var amount = items[item]
+	for i in range(Inventory.slots.size()):
+		var item = Inventory.slots[i]
 		var label: Label = LABEL.instantiate()
-		label.text = "%s: %s" % [item.name, amount]
+
 		label.label_settings = label.label_settings.duplicate()
-		if item == selected_item:
+		label.label_settings.outline_size = 0
+
+		if item:
+			label.text = "[%s]" % item.name
+		else:
+			label.text = '[Empty]'
+			label.label_settings.font_color = Color(1, 1, 1, .5)
+		if Inventory.selected_slot == i:
 			label.label_settings.font_color = Color.YELLOW
-		_list.add_child(label)
+
+		_inventory_slots.add_child(label)
 	
 	_update_build_panel()
 

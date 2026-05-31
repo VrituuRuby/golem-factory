@@ -6,13 +6,13 @@ class_name Workable
 
 var can_work: bool = false
 
-func _do_work(work_force: int = 1, pos: Vector3 = Vector3.ZERO):
+func _do_work(work_force: int = 1, pos: Vector3 = Vector3.ZERO, entityPos: Vector3 = Vector3.ZERO) -> void:
 	if not can_work: return
 
 	work_counter += work_force
 	if work_counter >= required_work:
 		work_counter = required_work
-		_on_work_finished(pos)
+		_on_work_finished(pos, entityPos)
 
-func _on_work_finished(pos: Vector3):
+func _on_work_finished(pos: Vector3, entityPos: Vector3 = Vector3.ZERO) -> void:
 	work_counter = 0

@@ -4,19 +4,17 @@ class_name ItemPickup
 
 var velocity := Vector3.ZERO
 var spawn_force = 5
-var time = 0
-var is_golem_holding := false
+
+var is_hovered = false;
+
+const MATERIAL_HIGHLIGHT := preload("res://assets/materials/mesh_highlight.tres")
 
 @export var mesh: MeshInstance3D
-@export var collectableTimer: Timer
 
 @export var item_data: ItemData:
 	set(value):
 		item_data = value
 		_update_visual()
-
-var isCollectable := false
-var inCollectableArea := false
 
 func _update_visual():
 	if not is_inside_tree():
@@ -25,35 +23,25 @@ func _update_visual():
 	if item_data and mesh:
 		mesh.mesh = item_data.mesh
 
-
 func _ready() -> void:
-	collectableTimer.start()
-	var randomDir := Vector3(randf_range(-1, 1), 1, randf_range(-1, 1))
-	axis_lock_angular_y = true
-	axis_lock_angular_x = true
-	axis_lock_angular_z = true
-
 	_update_visual()
 
-	apply_central_impulse(randomDir.normalized() * spawn_force)
 
-func _process(delta: float) -> void:
-	time += delta
-	mesh.rotation_degrees.y = time * 90
-	mesh.position.y = sin(time * 2) * 0.1 
+func launch(direction: Vector3):
+	var spread := 0.3
 
-	if(inCollectableArea and isCollectable):
-		_pickup()
+	direction.x += randf_range(-spread, spread)
+	direction.y += randf_range(0.0, spread)
+	direction.z += randf_range(-spread, spread)
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	inCollectableArea = true
+	apply_central_impulse(direction.normalized() * spawn_force)
 
-func _on_area_3d_body_exited(body: Node3D) -> void:
-	inCollectableArea = false
-
-func _pickup() -> void:
+func pickup() -> void:
 	if Inventory.add_item(item_data):
 		queue_free()
 
-func _on_collectable_timer_timeout() -> void:
-	isCollectable = true
+func set_highlight(enabled: bool) -> void:
+	if enabled:
+		mesh.material_overlay = MATERIAL_HIGHLIGHT
+	else: 
+		mesh.material_overlay = null

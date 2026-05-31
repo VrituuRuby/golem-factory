@@ -12,7 +12,7 @@ func _ready() -> void:
 	can_work = true;
 	current_amount = available_amount
 
-func _on_work_finished(pos: Vector3):
+func _on_work_finished(pos: Vector3, entityPos: Vector3 = Vector3.ZERO) -> void:
 	super._on_work_finished(pos)
 	available_amount -= 1
 
@@ -22,6 +22,9 @@ func _on_work_finished(pos: Vector3):
 	item.global_position = pos
 
 	get_tree().get_root().add_child(item)
+
+	var direction = entityPos - pos
+	item.launch(direction)
 
 	if available_amount <= 0:
 		queue_free();

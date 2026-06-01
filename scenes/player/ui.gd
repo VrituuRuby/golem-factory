@@ -14,7 +14,7 @@ const LABEL = preload("res://scenes/ui/resourse_label.tscn")
 
 @onready var inventory_slots: BoxContainer = $InventorySlots
 
-var is_build_panel_open := false
+var is_crafting_panel_open := false
 
 func _ready() -> void:
 	Inventory.update.connect(_update_inventory)
@@ -35,6 +35,7 @@ func update_crafting_panel() -> void:
 		recipe_list.add_child(recipe_option)
 
 func handle_craft(recipe: CraftingRecipe) -> void:
+	_toggle_build_panel()
 	for item in recipe.input.keys():
 		var amount = recipe.input[item]
 		Inventory.remove_item_anywhere(item, amount)
@@ -42,6 +43,7 @@ func handle_craft(recipe: CraftingRecipe) -> void:
 	# TODO: This is only working if recipe returns a single item, which is what manually crafting does rn. 
 	var output = recipe.output.keys()[0] 
 	Inventory.add_item(output)
+	update_crafting_panel()
 
 func _update_inventory() -> void:
 	for child in inventory_slots.get_children():
@@ -67,13 +69,14 @@ func _update_inventory() -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_build_panel"):
-		is_build_panel_open = not is_build_panel_open
 		_toggle_build_panel()
 
 func _toggle_build_panel() -> void:
-	if is_build_panel_open:
+	is_crafting_panel_open = not is_crafting_panel_open
+	if is_crafting_panel_open:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		crafting_panel.visible = true;
+		update_crafting_panel()
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		crafting_panel.visible = false;

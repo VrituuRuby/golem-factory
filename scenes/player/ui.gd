@@ -2,43 +2,48 @@ extends Control
 
 const LABEL = preload("res://scenes/ui/resourse_label.tscn")
 
-@onready var _inventory_slots: HBoxContainer = $InventorySlots
-@onready var _build_panel: Panel = $Panel
-@onready var _blueprints_list: VBoxContainer = $Panel/BlueprintsList
-@onready var _blueprint_option_scene: PackedScene = preload("res://scenes/ui/blueprint_option.tscn")
-@onready var _action_label: Label = $ActionTextLabel
 
+@onready var crafting_panel: Panel = $CraftingPanel
+@onready var recipe_list: VBoxContainer = $CraftingPanel/RecipesList
+@onready var recipe_option_scene: PackedScene = preload("res://scenes/ui/recipe_option.tscn")
+
+@export var recipes: Array[CraftingRecipe]  
+
+@onready var _action_label: Label = $ActionTextLabel
 @onready var _progress_bar: TextureProgressBar = $TextureProgressBar
 
-@export var builds_data: Array[BuildData]  
-
-signal select_blueprint(build_data: BuildData)
+@onready var inventory_slots: BoxContainer = $InventorySlots
 
 var is_build_panel_open := false
 
 func _ready() -> void:
+	print(inventory_slots)
 	Inventory.update.connect(_update_inventory)
 	_update_inventory()
-	_update_build_panel()
+	update_crafting_panel()
 
-func _update_build_panel() -> void:
-	for child in _blueprints_list.get_children():
+func update_crafting_panel() -> void:
+	for child in recipe_list.get_children():
 		child.queue_free()
 
-	for build_data in builds_data:
-		var blueprint_option = _blueprint_option_scene.instantiate()
-		blueprint_option.setup(build_data)
-		blueprint_option.select_build.connect(
-		func (bd: BuildData):
-			print("Selected blueprint")
-			select_blueprint.emit(bd)
-			is_build_panel_open = false
-			_toggle_build_panel()
-		)
-		_blueprints_list.add_child(blueprint_option)
+	for recipe in recipes:
+		var recipe_option = recipe_option_scene.instantiate()
+		recipe_option.setup(recipe)
+
+		recipe_option.craft_pressed.connect(handle_craft)
+
+		recipe_list.add_child(recipe_option)
+
+func handle_craft(recipe: CraftingRecipe) -> void:
+	for item in recipe.input.keys():
+		var amount = recipe.input[item]
+		Inventory.remove_item_anywhere(item, amount)
+
+	var output = recipe.output.keys()[0]
+	Inventory.add_item(output)
 
 func _update_inventory() -> void:
-	for child in _inventory_slots.get_children():
+	for child in inventory_slots.get_children():
 		child.queue_free()
 
 	for i in range(Inventory.slots.size()):
@@ -56,9 +61,9 @@ func _update_inventory() -> void:
 		if Inventory.selected_slot == i:
 			label.label_settings.font_color = Color.YELLOW
 
-		_inventory_slots.add_child(label)
+		inventory_slots.add_child(label)
 	
-	_update_build_panel()
+	update_crafting_panel()
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_build_panel"):
@@ -68,10 +73,10 @@ func _process(_delta: float) -> void:
 func _toggle_build_panel() -> void:
 	if is_build_panel_open:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-		_build_panel.visible = true;
+		crafting_panel.visible = true;
 	else:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-		_build_panel.visible = false;
+		crafting_panel.visible = false;
 
 
 func _on_character_body_3d_display_progress(interactable: Interactable) -> void:

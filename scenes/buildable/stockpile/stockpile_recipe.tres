@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://c1ui2abhvj7i" path="res://scenes/buildable/stockpile/stockpile.tscn" id="1_lbsny"]
 [ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://scripts/data/item_data.gd" id="2_pmx8t"]
-[ext_resource type="Resource" uid="uid://b0fufm160to34" path="res://scenes/items/wood.tres" id="3_3cydl"]
-[ext_resource type="Script" uid="uid://m6q54fj73t3d" path="res://scripts/data/build_data.gd" id="4_ww4ay"]
+[ext_resource type="Resource" uid="uid://b0fufm160to34" path="res://scenes/items/resources/wood.tres" id="3_3cydl"]
+[ext_resource type="Script" uid="uid://bt3dfe6j0be0m" path="res://scripts/data/build_data.gd" id="4_ww4ay"]
 
 [resource]
 script = ExtResource("4_ww4ay")

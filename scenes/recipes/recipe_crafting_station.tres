@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="CraftingRecipe" format=3 uid="uid://d0wn423b1q5su"]
+
+[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://scripts/data/item_data.gd" id="1_q5o6r"]
+[ext_resource type="Resource" uid="uid://h1e1qvi7kq7l" path="res://scenes/items/resources/tree_branch.tres" id="2_q5o6r"]
+[ext_resource type="Resource" uid="uid://b0fufm160to34" path="res://scenes/items/resources/wood.tres" id="2_sm6dd"]
+[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://scenes/items/resources/stone.tres" id="4_jx3l1"]
+[ext_resource type="Script" uid="uid://d2foyp2cef3ee" path="res://scripts/data/recipe.gd" id="4_kpus0"]
+[ext_resource type="Resource" uid="uid://26drrwsvx88s" path="res://scenes/items/placeables/placeable_crafting_station.tres" id="5_kpus0"]
+
+[resource]
+script = ExtResource("4_kpus0")
+name = "Crafting Station"
+input = Dictionary[ExtResource("1_q5o6r"), int]({
+ExtResource("2_q5o6r"): 1,
+ExtResource("2_sm6dd"): 1,
+ExtResource("4_jx3l1"): 1
+})
+output = Dictionary[ExtResource("1_q5o6r"), int]({
+ExtResource("5_kpus0"): 1
+})
+metadata/_custom_type_script = "uid://d2foyp2cef3ee"

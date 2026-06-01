@@ -5,12 +5,9 @@
 [ext_resource type="Script" uid="uid://bink5wgcy4brs" path="res://scenes/player/build_system.gd" id="2_gmlin"]
 [ext_resource type="PackedScene" uid="uid://dx17r7h7p7jbc" path="res://scenes/buildable/blueprint/blueprint.tscn" id="3_p47bc"]
 [ext_resource type="Script" uid="uid://dvtaudri20w56" path="res://scripts/systems/golem_manager.gd" id="4_fm80t"]
-[ext_resource type="PackedScene" uid="uid://dbaespd6qnolr" path="res://scenes/ui/blueprint_option.tscn" id="4_lvxji"]
-[ext_resource type="Script" uid="uid://m6q54fj73t3d" path="res://scripts/data/build_data.gd" id="5_0owmy"]
-[ext_resource type="Resource" uid="uid://b85jsel4f1pcv" path="res://scenes/buildable/stations/crafting_station/crafting_station.tres" id="6_qek5x"]
-[ext_resource type="Resource" uid="uid://cr85p45gtmisd" path="res://scenes/golem/golem.tres" id="7_je7p5"]
+[ext_resource type="Script" uid="uid://d2foyp2cef3ee" path="res://scripts/data/recipe.gd" id="6_h17s1"]
+[ext_resource type="Resource" uid="uid://d0wn423b1q5su" path="res://scenes/recipes/recipe_crafting_station.tres" id="7_h17s1"]
 [ext_resource type="Texture2D" uid="uid://ko5gsqgjig7m" path="res://assets/ui/under.png" id="8_h17s1"]
-[ext_resource type="Resource" uid="uid://bmkiuyvkkjetx" path="res://scenes/buildable/stockpile/stockpile_recipe.tres" id="9_gx1jg"]
 [ext_resource type="Texture2D" uid="uid://socuvr51almk" path="res://assets/ui/progress.png" id="9_je7p5"]
 [ext_resource type="Texture2D" uid="uid://dhs7iqw66rm15" path="res://assets/ui/crosshair.png" id="10_fm80t"]
 
@@ -69,7 +66,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_dovo2")
-builds_data = Array[ExtResource("5_0owmy")]([ExtResource("6_qek5x"), ExtResource("7_je7p5"), ExtResource("9_gx1jg")])
+recipes = Array[ExtResource("6_h17s1")]([ExtResource("7_h17s1")])
 
 [node name="InventorySlots" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=352125726]
 layout_mode = 1
@@ -86,8 +83,7 @@ grow_vertical = 0
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="Panel" type="Panel" parent="CanvasLayer/Control" unique_id=162366787]
-visible = false
+[node name="CraftingPanel" type="Panel" parent="CanvasLayer/Control" unique_id=162366787]
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -97,16 +93,17 @@ offset_right = 217.0
 offset_bottom = 268.0
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/Panel" unique_id=725534434]
+[node name="Label" type="Label" parent="CanvasLayer/Control/CraftingPanel" unique_id=725534434]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 23.0
 grow_horizontal = 2
-text = "Construction Panel"
+text = "Crafting Panel
+"
 horizontal_alignment = 1
 
-[node name="BlueprintsList" type="VBoxContainer" parent="CanvasLayer/Control/Panel" unique_id=414566216]
+[node name="RecipesList" type="VBoxContainer" parent="CanvasLayer/Control/CraftingPanel" unique_id=414566216]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -114,9 +111,6 @@ anchor_bottom = 1.0
 offset_top = 25.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="BlueprintOption" parent="CanvasLayer/Control/Panel/BlueprintsList" unique_id=1048545761 instance=ExtResource("4_lvxji")]
-layout_mode = 2
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control" unique_id=328410534]
 visible = false
@@ -173,52 +167,5 @@ grow_vertical = 2
 text = "Action Text"
 horizontal_alignment = 1
 
-[node name="CraftingStationPanel" type="Panel" parent="CanvasLayer/Control" unique_id=569523426]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = -150.0
-offset_right = 300.0
-offset_bottom = 150.0
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(0.5, 0)
-
-[node name="Label" type="Label" parent="CanvasLayer/Control/CraftingStationPanel" unique_id=1729164412]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -61.0
-offset_right = 61.0
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "Crafting Station"
-
-[node name="CraftingList" type="VBoxContainer" parent="CanvasLayer/Control/CraftingStationPanel" unique_id=1143034272]
-layout_mode = 1
-anchors_preset = 9
-anchor_bottom = 1.0
-grow_vertical = 2
-alignment = 1
-
-[node name="OptionPanel" type="Panel" parent="CanvasLayer/Control/CraftingStationPanel/CraftingList" unique_id=860089691]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="NameLabel" type="Label" parent="CanvasLayer/Control/CraftingStationPanel/CraftingList/OptionPanel" unique_id=1759861139]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Name"
-
 [connection signal="display_progress" from="." to="CanvasLayer/Control" method="_on_character_body_3d_display_progress"]
 [connection signal="select_blueprint" from="CanvasLayer/Control" to="BuildSystem" method="_on_control_select_blueprint"]
-
-[editable path="CanvasLayer/Control/Panel/BlueprintsList/BlueprintOption"]

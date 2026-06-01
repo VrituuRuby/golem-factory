@@ -1,7 +1,7 @@
 extends Workable
 class_name Blueprint
 
-@export var build_data: BuildData
+@export var build_data: PlaceableItemData
 
 @onready var area_3d: Area3D = $Area3D
 
@@ -19,7 +19,7 @@ const BLUE_MATERIAL := preload("res://assets/materials/blue.tres")
 
 func _ready() -> void:
 	required_work = build_data.required_work
-	build_node = build_data.build.instantiate() as Node3D
+	build_node = build_data.scene.instantiate() as Node3D
 
 	build_mesh = build_node.get_node("MeshInstance3D").duplicate() as MeshInstance3D
 	build_collision = build_node.get_node("CollisionShape3D").duplicate() as CollisionShape3D

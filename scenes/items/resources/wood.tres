@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://b0fufm160to34"]
 
-[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://scripts/data/item_data.gd" id="1_h8bct"]
+[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://scripts/data/item_data.gd" id="1_r7h1a"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_78cro"]
 albedo_color = Color(0.5568628, 0.29803923, 0.18431373, 1)
@@ -13,6 +13,6 @@ height = 0.5
 radial_segments = 8
 
 [resource]
-script = ExtResource("1_h8bct")
+script = ExtResource("1_r7h1a")
 name = "Wood"
 mesh = SubResource("CylinderMesh_7313b")

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://h1e1qvi7kq7l"]
 
-[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://scripts/data/item_data.gd" id="1_5762i"]
+[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://scripts/data/item_data.gd" id="1_dc1w4"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_78cro"]
 albedo_color = Color(0.59, 0.38605666, 0.23009998, 1)
@@ -12,7 +12,7 @@ bottom_radius = 0.015
 height = 0.5
 
 [resource]
-script = ExtResource("1_5762i")
+script = ExtResource("1_dc1w4")
 name = "Tree Branch"
 mesh = SubResource("CylinderMesh_7313b")
 metadata/_custom_type_script = "uid://cg4gop0hq8bt7"

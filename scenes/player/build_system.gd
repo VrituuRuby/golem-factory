@@ -10,6 +10,17 @@ var desired_rotation := Vector3.ZERO
 
 const GRID_SIZE = .25
 
+func _ready() -> void:
+	Inventory.update.connect(func ():
+		var selected_item = Inventory.slots[Inventory.selected_slot]
+		if selected_item is PlaceableItemData:
+			_on_select_blueprint(selected_item)
+		else:
+			if blueprint:
+				blueprint.queue_free()
+				blueprint = null
+		)
+
 func snap_to_grid(pos: Vector3) -> Vector3:
 	var x = round(pos.x / GRID_SIZE) * GRID_SIZE
 	var y = round(pos.y / GRID_SIZE) * GRID_SIZE
@@ -27,10 +38,8 @@ func _handle_input():
 	if Input.is_action_just_pressed("action") && Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		if blueprint.place():
 			blueprint.rotation = desired_rotation
-			for item in blueprint.build_data.input.keys():
-				var amount = blueprint.build_data.input[item]
-				# Inventory.remove_item(item, amount)
 			blueprint = null;
+			Inventory.remove_selected()
 
 func _process(delta: float) -> void:
 	if blueprint == null: return
@@ -43,12 +52,12 @@ func _process(delta: float) -> void:
 	_handle_input()
 
 
-func _on_control_select_blueprint(build_data: BuildData) -> void:
+func _on_select_blueprint(placeable_data: PlaceableItemData) -> void:
 	if not (blueprint == null):
 		blueprint.queue_free()
 		blueprint = null
 
 	blueprint = blueprint_scene.instantiate() as Blueprint
-	blueprint.build_data = build_data
+	blueprint.build_data = placeable_data
 	blueprint.global_position = get_parent().global_position
 	get_parent().get_parent().add_child(blueprint)

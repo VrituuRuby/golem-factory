@@ -4,7 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://gspb3kwsy36c" path="res://scenes/sources/ore.tscn" id="2_1fp7r"]
 [ext_resource type="PackedScene" uid="uid://b58de1ux5lkn" path="res://scenes/sources/tree.tscn" id="3_1fp7r"]
 [ext_resource type="PackedScene" uid="uid://di0mf7ym06ngw" path="res://scenes/item_pickup/item_pickup.tscn" id="4_v5dby"]
-[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://scenes/items/stone.tres" id="5_t5ptc"]
+[ext_resource type="Resource" uid="uid://b0fufm160to34" path="res://scenes/items/resources/wood.tres" id="5_bq33v"]
+[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://scenes/items/resources/stone.tres" id="5_t5ptc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nnsk1"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -131,11 +132,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 1, -17)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, -15)
 
 [node name="ItemPickup10" parent="." unique_id=390819851 instance=ExtResource("4_v5dby")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23, 1, -15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, -3)
 
 [node name="ItemPickup11" parent="." unique_id=521545014 instance=ExtResource("4_v5dby")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -6)
-item_data = ExtResource("5_t5ptc")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 1, -3)
+item_data = ExtResource("5_bq33v")
 
 [node name="ItemPickup12" parent="." unique_id=896211882 instance=ExtResource("4_v5dby")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -4)

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://gspb3kwsy36c"]
 
 [ext_resource type="Script" uid="uid://col5p4f01es84" path="res://scenes/sources/ore.gd" id="1_84iim"]
-[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://scenes/items/stone.tres" id="2_afn3p"]
+[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://scenes/items/resources/stone.tres" id="2_afn3p"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wbpm2"]
 albedo_color = Color(0.263055, 0.29790342, 0.38774815, 1)

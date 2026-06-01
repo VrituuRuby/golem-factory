@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://di0mf7ym06ngw"]
 
 [ext_resource type="Script" uid="uid://bmoyh8o25rq7d" path="res://scenes/item_pickup/item_pickup.gd" id="1_o5jsg"]
-[ext_resource type="Resource" uid="uid://h1e1qvi7kq7l" path="res://scenes/items/tree_branch.tres" id="2_nod1e"]
+[ext_resource type="Resource" uid="uid://h1e1qvi7kq7l" path="res://scenes/items/resources/tree_branch.tres" id="2_nod1e"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_7313b"]
 top_radius = 0.01

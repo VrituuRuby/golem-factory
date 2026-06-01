@@ -16,7 +16,7 @@ func add_item(item: ItemData) -> void:
 		print("No recipe selected")
 		return
 
-	var recipe_inputs = selected_recipe.inputs
+	var recipe_inputs = selected_recipe.input
 
 	if not recipe_inputs.has(item):
 		print("Item not in recipe")
@@ -36,8 +36,8 @@ func update_can_craft():
 		can_work = false
 		return
 
-	for item in selected_recipe.inputs.keys():
-		var required_amount = selected_recipe.inputs[item]
+	for item in selected_recipe.input.keys():
+		var required_amount = selected_recipe.input[item]
 		var current_amount = inventory.get(item, 0)
 
 		if current_amount < required_amount:
@@ -47,8 +47,8 @@ func update_can_craft():
 func _on_work_finished(pos: Vector3, _entityPos: Vector3 = Vector3.ZERO) -> void:
 	super._on_work_finished(pos)
 
-	for key in selected_recipe.outputs.keys():
-		var amount = selected_recipe.outputs.get(key)
+	for key in selected_recipe.output.keys():
+		var amount = selected_recipe.output.get(key)
 		
 		for i in range(amount):
 			var item = item_pickup.instantiate() as ItemPickup

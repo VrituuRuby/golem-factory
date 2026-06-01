@@ -8,43 +8,44 @@ script/source = "extends Panel
 
 @export var build_button: Button
 
-signal select_build(build_data: BuildData)
+var recipe: CraftingRecipe
+var can_craft = true
 
-var _build_data: BuildData
+signal craft_pressed(recipe: CraftingRecipe)
 
-var can_build = true
-
-func setup(build_data: BuildData):
-	_build_data = build_data
+func setup(crafting_recipe: CraftingRecipe):
+	recipe = crafting_recipe
 	
 	if not is_node_ready():
 		await ready
 	
-	name_label.text = _build_data.name;
+	name_label.text = recipe.name;
 	
-	for item in _build_data.input.keys():
-		var required = _build_data.input[item]
-		
-		# if not Inventory.has_item(item, required):
-		#	can_build = false
-		#	break
+	for item in recipe.input.keys():
+		var amount = recipe.input[item]
+		if not Inventory.has_item(item, amount):
+			can_craft = false
 	
-	build_button.disabled = not can_build
-	build_button.pressed.connect(func (): 
-		select_build.emit(build_data))
+	build_button.disabled = not can_craft
+	
+	build_button.pressed.connect(func():
+		craft_pressed.emit(recipe)
+	)	
+	
 	_handle_requirements()
 	
 func _handle_requirements(): 
 	rich_text.text = \"[font_size=12]\"
 	
-	for item in _build_data.input.keys():
-		var amount = _build_data.input[item]
-		rich_text.append_text(\"%d %s\\n\" % [amount, item.name])
+	for item: ItemData in recipe.input.keys():
+		var amount = recipe.input[item]
+		rich_text.append_text(\"%d %s \\n\" % [amount, item.name])
 	
-	rich_text.append_text(\"%d clicks\" % [_build_data.required_work])
+	if recipe.station != 0:
+		rich_text.append_text(\"%d clicks\" % [recipe.required_work])
 "
 
-[node name="BlueprintOption" type="Panel" unique_id=640502611 node_paths=PackedStringArray("build_button")]
+[node name="RecipeOption" type="Panel" unique_id=640502611 node_paths=PackedStringArray("build_button")]
 custom_minimum_size = Vector2(150, 100)
 offset_right = 202.0
 offset_bottom = 122.0
@@ -88,3 +89,5 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Build"
+
+[connection signal="pressed" from="HBoxContainer/Button" to="." method="_on_button_pressed"]

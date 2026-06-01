@@ -17,10 +17,10 @@ const LABEL = preload("res://scenes/ui/resourse_label.tscn")
 var is_build_panel_open := false
 
 func _ready() -> void:
-	print(inventory_slots)
 	Inventory.update.connect(_update_inventory)
-	_update_inventory()
+
 	update_crafting_panel()
+	_update_inventory()
 
 func update_crafting_panel() -> void:
 	for child in recipe_list.get_children():
@@ -39,7 +39,8 @@ func handle_craft(recipe: CraftingRecipe) -> void:
 		var amount = recipe.input[item]
 		Inventory.remove_item_anywhere(item, amount)
 
-	var output = recipe.output.keys()[0]
+	# TODO: This is only working if recipe returns a single item, which is what manually crafting does rn. 
+	var output = recipe.output.keys()[0] 
 	Inventory.add_item(output)
 
 func _update_inventory() -> void:
@@ -63,7 +64,6 @@ func _update_inventory() -> void:
 
 		inventory_slots.add_child(label)
 	
-	update_crafting_panel()
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_build_panel"):

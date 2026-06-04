@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://di0mf7ym06ngw"]
+
+[ext_resource type="Script" uid="uid://bmoyh8o25rq7d" path="res://world/item_pickup/item_pickup.gd" id="1_o5jsg"]
+[ext_resource type="Resource" uid="uid://h1e1qvi7kq7l" path="res://items/resources/tree_branch.tres" id="2_nod1e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_78cro"]
+albedo_color = Color(0.59, 0.38605666, 0.23009998, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7313b"]
+material = SubResource("StandardMaterial3D_78cro")
+top_radius = 0.01
+bottom_radius = 0.015
+height = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_lgqak"]
+radius = 0.25
+
+[node name="ItemPickup" type="RigidBody3D" unique_id=1795658146 node_paths=PackedStringArray("mesh") groups=["item_pickup"]]
+collision_layer = 4
+can_sleep = false
+lock_rotation = true
+script = ExtResource("1_o5jsg")
+mesh = NodePath("MeshInstance3D")
+item_data = ExtResource("2_nod1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1507732020]
+transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
+mesh = SubResource("CylinderMesh_7313b")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=79782807]
+shape = SubResource("SphereShape3D_lgqak")
+
+[node name="CollectableTimer" type="Timer" parent="." unique_id=432921158]
+wait_time = 0.5
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="CollectableTimer" to="." method="_on_collectable_timer_timeout"]

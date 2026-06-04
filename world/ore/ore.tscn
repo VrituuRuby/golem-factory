@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://gspb3kwsy36c"]
+
+[ext_resource type="Script" uid="uid://col5p4f01es84" path="res://world/ore/ore.gd" id="1_84iim"]
+[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://items/resources/stone.tres" id="2_afn3p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wbpm2"]
+albedo_color = Color(0.263055, 0.29790342, 0.38774815, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nnsk1"]
+material = SubResource("StandardMaterial3D_wbpm2")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_rwgxs"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="Ore" type="StaticBody3D" unique_id=893587064 groups=["resource"]]
+script = ExtResource("1_84iim")
+output = ExtResource("2_afn3p")
+action_name = "Mine"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=167270946]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.96692085, 0)
+mesh = SubResource("BoxMesh_nnsk1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1173391144]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.96692085, 0)
+shape = SubResource("ConcavePolygonShape3D_rwgxs")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=950491592]
+transform = Transform3D(0.9759662, 0, -0.21792181, 0, 1, 0, 0.21792181, 0, 0.9759662, 0, 3.387507, 0)
+billboard = 1
+no_depth_test = true
+text = "300/300"
+font_size = 72

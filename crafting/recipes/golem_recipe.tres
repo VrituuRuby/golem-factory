@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="CraftingRecipe" format=3 uid="uid://qrj85a328iu3"]
+
+[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://items/item_data.gd" id="1_mpdat"]
+[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://items/resources/stone.tres" id="2_16w54"]
+[ext_resource type="Script" uid="uid://d2foyp2cef3ee" path="res://crafting/crafting_recipe.gd" id="2_17sse"]
+[ext_resource type="Resource" uid="uid://bsnywftvke3eq" path="res://items/placeables/placeable_golem.tres" id="3_16w54"]
+
+[resource]
+script = ExtResource("2_17sse")
+name = "Golem"
+input = Dictionary[ExtResource("1_mpdat"), int]({
+ExtResource("2_16w54"): 1
+})
+output = Dictionary[ExtResource("1_mpdat"), int]({
+ExtResource("3_16w54"): 1
+})
+required_work = 5
+metadata/_custom_type_script = "uid://d2foyp2cef3ee"

@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bjys08yol4m85"]
 
-[ext_resource type="PackedScene" uid="uid://83wfhqbt1ff0" path="res://scenes/player/player.tscn" id="1_sl2e5"]
-[ext_resource type="PackedScene" uid="uid://gspb3kwsy36c" path="res://scenes/sources/ore.tscn" id="2_1fp7r"]
-[ext_resource type="PackedScene" uid="uid://b58de1ux5lkn" path="res://scenes/sources/tree.tscn" id="3_1fp7r"]
-[ext_resource type="PackedScene" uid="uid://di0mf7ym06ngw" path="res://scenes/item_pickup/item_pickup.tscn" id="4_v5dby"]
-[ext_resource type="Resource" uid="uid://b0fufm160to34" path="res://scenes/items/resources/wood.tres" id="5_bq33v"]
-[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://scenes/items/resources/stone.tres" id="5_t5ptc"]
+[ext_resource type="PackedScene" uid="uid://83wfhqbt1ff0" path="res://player/player.tscn" id="1_sl2e5"]
+[ext_resource type="PackedScene" uid="uid://gspb3kwsy36c" path="res://world/ore/ore.tscn" id="2_1fp7r"]
+[ext_resource type="PackedScene" uid="uid://b58de1ux5lkn" path="res://world/tree/tree.tscn" id="3_1fp7r"]
+[ext_resource type="PackedScene" uid="uid://di0mf7ym06ngw" path="res://world/item_pickup/item_pickup.tscn" id="4_v5dby"]
+[ext_resource type="Resource" uid="uid://b0fufm160to34" path="res://items/resources/wood.tres" id="5_bq33v"]
+[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://items/resources/stone.tres" id="5_t5ptc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nnsk1"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)

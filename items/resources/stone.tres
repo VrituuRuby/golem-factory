@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://btujepeutb7ge"]
+
+[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://items/item_data.gd" id="1_jmuhp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jmuhp"]
+albedo_color = Color(0.2627451, 0.29803923, 0.3882353, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_jmuhp"]
+material = SubResource("StandardMaterial3D_jmuhp")
+size = Vector3(0.25, 0.25, 0.25)
+
+[resource]
+script = ExtResource("1_jmuhp")
+name = "Stone"
+mesh = SubResource("PrismMesh_jmuhp")

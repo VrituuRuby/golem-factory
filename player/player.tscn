@@ -1,0 +1,171 @@
+[gd_scene format=3 uid="uid://83wfhqbt1ff0"]
+
+[ext_resource type="Script" uid="uid://btu8t8ahjulr4" path="res://player/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://cymvf3d2bjw77" path="res://player/ui/ui.gd" id="2_dovo2"]
+[ext_resource type="Script" uid="uid://bink5wgcy4brs" path="res://player/build_system.gd" id="2_gmlin"]
+[ext_resource type="PackedScene" uid="uid://dx17r7h7p7jbc" path="res://buildings/blueprint/blueprint.tscn" id="3_p47bc"]
+[ext_resource type="Script" uid="uid://dvtaudri20w56" path="res://golemns/golem_manager.gd" id="4_fm80t"]
+[ext_resource type="Script" uid="uid://d2foyp2cef3ee" path="res://crafting/crafting_recipe.gd" id="6_h17s1"]
+[ext_resource type="Resource" uid="uid://d0wn423b1q5su" path="res://crafting/recipes/recipe_crafting_station.tres" id="7_h17s1"]
+[ext_resource type="Texture2D" uid="uid://ko5gsqgjig7m" path="res://assets/ui/under.png" id="8_h17s1"]
+[ext_resource type="Resource" uid="uid://qrj85a328iu3" path="res://crafting/recipes/golem_recipe.tres" id="8_je7p5"]
+[ext_resource type="Texture2D" uid="uid://socuvr51almk" path="res://assets/ui/progress.png" id="9_je7p5"]
+[ext_resource type="Texture2D" uid="uid://dhs7iqw66rm15" path="res://assets/ui/crosshair.png" id="10_fm80t"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_rwgxs"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4wyf3"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=399614092 node_paths=PackedStringArray("head", "camera", "ray_cast") groups=["player"]]
+collision_layer = 2
+script = ExtResource("1_3vyb7")
+head = NodePath("Head")
+camera = NodePath("Head/Camera3D")
+ray_cast = NodePath("Head/Camera3D/RayCast3D")
+
+[node name="BuildSystem" type="Node" parent="." unique_id=2122088186 node_paths=PackedStringArray("hand_target")]
+script = ExtResource("2_gmlin")
+hand_target = NodePath("../Head/Camera3D/SpringArm3D/HandTarget")
+blueprint_scene = ExtResource("3_p47bc")
+
+[node name="GolemManager" type="Node" parent="." unique_id=972232288]
+script = ExtResource("4_fm80t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=601069637]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_rwgxs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=741087258]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_4wyf3")
+
+[node name="Head" type="Node3D" parent="." unique_id=1952626167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=874492517]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="Head/Camera3D" unique_id=373286888]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+spring_length = 5.0
+
+[node name="HandTarget" type="Marker3D" parent="Head/Camera3D/SpringArm3D" unique_id=8264253]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, -1.5, 4.984)
+
+[node name="RayCast3D" type="RayCast3D" parent="Head/Camera3D" unique_id=1242818013]
+target_position = Vector3(0, 0, -5)
+collision_mask = 15
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=217640580]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=588952744]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_dovo2")
+recipes = Array[ExtResource("6_h17s1")]([ExtResource("7_h17s1"), ExtResource("8_je7p5")])
+
+[node name="InventorySlots" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=352125726]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="CraftingPanel" type="Panel" parent="CanvasLayer/Control" unique_id=162366787]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -268.0
+offset_right = 217.0
+offset_bottom = 268.0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/CraftingPanel" unique_id=725534434]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Crafting Panel
+"
+horizontal_alignment = 1
+
+[node name="RecipesList" type="VBoxContainer" parent="CanvasLayer/Control/CraftingPanel" unique_id=414566216]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="CanvasLayer/Control" unique_id=328410534]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.185, 0.185)
+pivot_offset = Vector2(128, 128)
+fill_mode = 4
+texture_under = ExtResource("8_h17s1")
+texture_progress = ExtResource("9_je7p5")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=1184661440]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.0
+offset_top = -19.0
+offset_right = 19.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(19, 19)
+texture = ExtResource("10_fm80t")
+stretch_mode = 5
+
+[node name="ActionTextLabel" type="Label" parent="CanvasLayer/Control" unique_id=1976482660]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -51.0
+offset_right = 43.5
+offset_bottom = -28.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Action Text"
+horizontal_alignment = 1
+
+[connection signal="display_progress" from="." to="CanvasLayer/Control" method="_on_character_body_3d_display_progress"]

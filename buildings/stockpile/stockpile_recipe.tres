@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BuildData" format=3 uid="uid://bmkiuyvkkjetx"]
+
+[ext_resource type="PackedScene" uid="uid://c1ui2abhvj7i" path="res://buildings/stockpile/stockpile.tscn" id="1_lbsny"]
+[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://items/item_data.gd" id="2_pmx8t"]
+[ext_resource type="Resource" uid="uid://b0fufm160to34" path="res://items/resources/wood.tres" id="3_3cydl"]
+[ext_resource type="Script" uid="uid://m6q54fj73t3d" path="res://scripts/data/build_data.gd" id="4_ww4ay"]
+
+[resource]
+script = ExtResource("4_ww4ay")
+build = ExtResource("1_lbsny")
+input = Dictionary[ExtResource("2_pmx8t"), int]({
+ExtResource("3_3cydl"): 10
+})
+name = "Stockpíle"
+required_work = 1
+metadata/_custom_type_script = "uid://m6q54fj73t3d"

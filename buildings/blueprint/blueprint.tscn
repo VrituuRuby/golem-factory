@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dx17r7h7p7jbc"]
+
+[ext_resource type="Script" uid="uid://7te3qg1pyb8v" path="res://buildings/blueprint/blueprint.gd" id="1_fc7bq"]
+
+[node name="Blueprint" type="StaticBody3D" unique_id=849598009]
+script = ExtResource("1_fc7bq")
+action_name = "Build"
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1015468100]

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CraftingRecipe" format=3 uid="uid://drdqvgm0aep08"]
+
+[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://items/item_data.gd" id="1_h6kvi"]
+[ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://items/resources/stone.tres" id="2_ntjww"]
+[ext_resource type="Script" uid="uid://d2foyp2cef3ee" path="res://crafting/crafting_recipe.gd" id="2_wl2kv"]
+[ext_resource type="Resource" uid="uid://h1e1qvi7kq7l" path="res://items/resources/tree_branch.tres" id="3_vrh5w"]
+[ext_resource type="Resource" uid="uid://cgov24fdk2khg" path="res://items/tools/crude_axe.tres" id="4_4760c"]
+
+[resource]
+script = ExtResource("2_wl2kv")
+name = "Axe"
+input = Dictionary[ExtResource("1_h6kvi"), int]({
+ExtResource("2_ntjww"): 1,
+ExtResource("3_vrh5w"): 1
+})
+output = Dictionary[ExtResource("1_h6kvi"), int]({
+ExtResource("4_4760c"): 1
+})
+metadata/_custom_type_script = "uid://d2foyp2cef3ee"

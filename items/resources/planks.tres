@@ -7,10 +7,12 @@ albedo_color = Color(0.9, 0.6348, 0.432, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_aa4y4"]
 material = SubResource("StandardMaterial3D_78cro")
-size = Vector3(0.47, 0.125, 1.59)
+size = Vector3(0.465, 0.125, 1.59)
 
 [resource]
 script = ExtResource("1_61763")
-name = "Planks"
+name = "Plank"
 mesh = SubResource("BoxMesh_aa4y4")
+mesh_scale = 0.3
+mesh_rotation = Vector3(33, 0, 0)
 metadata/_custom_type_script = "uid://cg4gop0hq8bt7"

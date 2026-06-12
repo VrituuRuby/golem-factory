@@ -16,3 +16,5 @@ radial_segments = 8
 script = ExtResource("1_r7h1a")
 name = "Wood"
 mesh = SubResource("CylinderMesh_7313b")
+mesh_scale = 0.843
+mesh_rotation = Vector3(33, 0, 0)

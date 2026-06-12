@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cs1i26wpwp3oi"]
+
+[ext_resource type="PackedScene" uid="uid://c76gxylwe4cm0" path="res://assets/placeholder/axe.glb" id="1_i0bqy"]
+[ext_resource type="Script" uid="uid://dp10ctwj1ltav" path="res://world/item_pickup/scenes/crude_axe_pickup.gd" id="1_npk0q"]
+[ext_resource type="Resource" uid="uid://cgov24fdk2khg" path="res://items/tools/crude_axe.tres" id="2_aj5xa"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_npk0q"]
+size = Vector3(0.16821289, 0.64904785, 0.31195068)
+
+[node name="CrudeAxePickup" type="RigidBody3D" unique_id=20819291 node_paths=PackedStringArray("mesh")]
+script = ExtResource("1_npk0q")
+mesh = NodePath("axe/Circle")
+item_data = ExtResource("2_aj5xa")
+
+[node name="axe" parent="." unique_id=1602275041 instance=ExtResource("1_i0bqy")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1149788602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31378174, 0.06851196)
+shape = SubResource("BoxShape3D_npk0q")
+
+[editable path="axe"]

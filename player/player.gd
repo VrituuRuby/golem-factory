@@ -20,7 +20,7 @@ var t_bob = 0.0;
 
 @onready var golem_manager: GolemManager = $GolemManager
 
-var current_hovered: ItemPickup = null
+var current_hovered: Node3D = null
 
 signal display_progress(workable: Workable)
 
@@ -68,10 +68,10 @@ func _process(delta: float) -> void:
 	if collider != current_hovered:
 		if current_hovered:
 			current_hovered.set_highlight(false)
+			current_hovered = null
+			return;
 
-		current_hovered = null
-
-		if collider is ItemPickup:
+		if collider.has_method("set_highlight"):
 			current_hovered = collider
 			current_hovered.set_highlight(true)
 
@@ -115,7 +115,7 @@ func _interact() -> void:
 	if(not ray_cast.is_colliding()): return
 	var collider := ray_cast.get_collider() as Node
 
-	if collider is ItemPickup:
+	if collider.has_method("pickup"):
 		collider.pickup()
 		return;
 

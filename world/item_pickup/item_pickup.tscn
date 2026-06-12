@@ -1,16 +1,8 @@
 [gd_scene format=3 uid="uid://di0mf7ym06ngw"]
 
 [ext_resource type="Script" uid="uid://bmoyh8o25rq7d" path="res://world/item_pickup/item_pickup.gd" id="1_o5jsg"]
-[ext_resource type="Resource" uid="uid://h1e1qvi7kq7l" path="res://items/resources/tree_branch.tres" id="2_nod1e"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_78cro"]
-albedo_color = Color(0.59, 0.38605666, 0.23009998, 1)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_7313b"]
-material = SubResource("StandardMaterial3D_78cro")
-top_radius = 0.01
-bottom_radius = 0.015
-height = 0.5
+[ext_resource type="Resource" uid="uid://bsnywftvke3eq" path="res://items/placeables/placeable_golem.tres" id="2_otlqd"]
+[ext_resource type="ArrayMesh" uid="uid://cb6v22qsaxafo" path="res://assets/placeholder/golem_placeholder.mesh" id="3_h54wh"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lgqak"]
 radius = 0.25
@@ -20,15 +12,20 @@ collision_layer = 4
 can_sleep = false
 lock_rotation = true
 script = ExtResource("1_o5jsg")
-mesh = NodePath("MeshInstance3D")
-item_data = ExtResource("2_nod1e")
+mesh = NodePath("VisualPivot/MeshInstance3D")
+item_data = ExtResource("2_otlqd")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1507732020]
-transform = Transform3D(0.9999999, 0, 0, 0, 1, 0, 0, 0, 0.9999999, 0, 0, 0)
-mesh = SubResource("CylinderMesh_7313b")
+[node name="VisualPivot" type="Marker3D" parent="." unique_id=130602843]
+transform = Transform3D(-0.36471066, 0, -0.93112093, 0, 1, 0, 0.93112093, 0, -0.36471066, 0, -0.12063319, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="VisualPivot" unique_id=1507732020]
+transform = Transform3D(0.428, 0, 0, 0, 0.428, 0, 0, 0, 0.428, 0, -0.08, 0)
+mesh = ExtResource("3_h54wh")
+skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=79782807]
 shape = SubResource("SphereShape3D_lgqak")
+debug_color = Color(0, 0.5950001, 0.7, 1)
 
 [node name="CollectableTimer" type="Timer" parent="." unique_id=432921158]
 wait_time = 0.5

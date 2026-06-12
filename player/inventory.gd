@@ -20,6 +20,7 @@ func call_update() -> void:
 	update.emit()
 
 func add_item(item: ItemData) -> bool:
+	print(item)
 	if slots[selected_slot] == null:
 		slots[selected_slot] = item
 		call_update()

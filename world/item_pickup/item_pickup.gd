@@ -2,32 +2,46 @@
 extends RigidBody3D
 class_name ItemPickup
 
-var velocity := Vector3.ZERO
-var spawn_force = 5
-
 var is_hovered = false;
 
 const MATERIAL_HIGHLIGHT := preload("res://assets/materials/mesh_highlight.tres")
 
+@onready var visual_pivot: Marker3D = $VisualPivot
 @export var mesh: MeshInstance3D
-
 @export var item_data: ItemData:
 	set(value):
 		item_data = value
-		_update_visual()
+
+		if is_inside_tree():
+			_update_visual()
+
+var hover_time := 0.0
+var base_position := Vector3.ZERO
 
 func _update_visual():
-	if not is_inside_tree():
-		return
+	mesh.scale = Vector3(item_data.mesh_scale, item_data.mesh_scale, item_data.mesh_scale)
 		
 	if item_data and mesh:
 		mesh.mesh = item_data.mesh
+		mesh.rotation_degrees = item_data.mesh_rotation
+		base_position = item_data.mesh_offset
+		mesh.position = base_position
 
 func _ready() -> void:
 	_update_visual()
 
+func _process(delta):
+	if Engine.is_editor_hint():
+		_update_visual()
+	
+	hover_time += delta;
 
-func launch(direction: Vector3):
+	visual_pivot.position.y = (base_position.y + sin(hover_time * 2) * 0.05)
+	visual_pivot.rotation_degrees.y += 45 * delta
+
+
+
+func launch(direction: Vector3, spawn_force: float = 5): 
 	var spread := 0.3
 
 	direction.x += randf_range(-spread, spread)

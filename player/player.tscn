@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://d0wn423b1q5su" path="res://crafting/recipes/recipe_crafting_station.tres" id="7_h17s1"]
 [ext_resource type="Texture2D" uid="uid://ko5gsqgjig7m" path="res://assets/ui/under.png" id="8_h17s1"]
 [ext_resource type="Resource" uid="uid://qrj85a328iu3" path="res://crafting/recipes/golem_recipe.tres" id="8_je7p5"]
+[ext_resource type="Resource" uid="uid://drdqvgm0aep08" path="res://crafting/recipes/crude-axe-recipe.tres" id="9_ebec5"]
 [ext_resource type="Texture2D" uid="uid://socuvr51almk" path="res://assets/ui/progress.png" id="9_je7p5"]
 [ext_resource type="Texture2D" uid="uid://dhs7iqw66rm15" path="res://assets/ui/crosshair.png" id="10_fm80t"]
 
@@ -67,7 +68,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("2_dovo2")
-recipes = Array[ExtResource("6_h17s1")]([ExtResource("7_h17s1"), ExtResource("8_je7p5")])
+recipes = Array[ExtResource("6_h17s1")]([ExtResource("7_h17s1"), ExtResource("8_je7p5"), ExtResource("9_ebec5")])
 
 [node name="InventorySlots" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=352125726]
 layout_mode = 1

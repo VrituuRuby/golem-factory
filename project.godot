@@ -22,6 +22,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Inventory="*res://player/inventory.gd"
+ItemSpawner="*uid://hdcyc6yn0oa4"
 
 [global_group]
 

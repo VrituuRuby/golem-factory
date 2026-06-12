@@ -13,6 +13,7 @@ height = 0.5
 
 [resource]
 script = ExtResource("1_dc1w4")
-name = "Tree Branch"
+name = "Branch"
 mesh = SubResource("CylinderMesh_7313b")
+mesh_rotation = Vector3(33, 0, 0)
 metadata/_custom_type_script = "uid://cg4gop0hq8bt7"

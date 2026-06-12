@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ToolItemData" format=3 uid="uid://cgov24fdk2khg"]
+
+[ext_resource type="Script" uid="uid://4s5uqty05xwh" path="res://items/tool_item_data.gd" id="1_6qd6x"]
+[ext_resource type="ArrayMesh" uid="uid://cbc5x77sgdack" path="res://assets/placeholder/axe/axe.obj" id="1_plw2n"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_6qd6x")
+name = "Crude Axe"
+mesh = ExtResource("1_plw2n")
+mesh_scale = 0.929
+mesh_rotation = Vector3(0, 0, 33)
+mesh_offset = Vector3(0.085, -0.15, 0)

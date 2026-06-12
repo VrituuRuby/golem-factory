@@ -4,6 +4,7 @@ extends WorkableSource
 
 func _ready() -> void:
 	super._ready()
+	print(output)
 	label_3d.text = "%d/%d" % [current_amount, available_amount]
 
 func _on_work_finished(pos: Vector3, entityPos: Vector3 = Vector3.ZERO) -> void:

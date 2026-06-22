@@ -23,6 +23,7 @@ var t_bob = 0.0;
 var current_hovered: Node3D = null
 
 signal display_progress(workable: Workable)
+signal display_tooltip(node: Node)
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -47,7 +48,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		if item:
 			var item_pickup = item_pickup.instantiate() as ItemPickup
 			item_pickup.item_data = item
-			item_pickup.global_position = global_position + Vector3(0, 1, 0)
+			item_pickup.global_position = global_position + Vector3(0, 1.5, 0)
+			var direction = -camera.global_transform.basis.z
+			item_pickup.apply_central_impulse(direction * 5)
 			get_tree().get_root().add_child(item_pickup)
 			Inventory.remove_selected()
 
@@ -74,6 +77,11 @@ func _process(delta: float) -> void:
 		if collider.has_method("set_highlight"):
 			current_hovered = collider
 			current_hovered.set_highlight(true)
+		
+		if collider.has_method("get_tooltip_scene"):
+			display_tooltip.emit(collider)
+		else:
+			display_tooltip.emit(null)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

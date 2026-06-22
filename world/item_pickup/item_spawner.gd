@@ -8,4 +8,6 @@ func spawn_item(item_data: ItemData, pos: Vector3, launch_dir: Vector3 = Vector3
 	item_pickup.item_data = item_data
 	item_pickup.global_position = pos
 
+	item_pickup.launch(launch_dir, spawn_force)
+
 	get_tree().get_root().add_child(item_pickup)

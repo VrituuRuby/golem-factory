@@ -16,11 +16,27 @@ const LABEL = preload("res://player/ui/resourse_label.tscn")
 
 var is_crafting_panel_open := false
 
+@export var tooltip_pivot: Control
+var current_tooltip: Node = null
+
 func _ready() -> void:
 	Inventory.update.connect(_update_inventory)
 
 	update_crafting_panel()
 	_update_inventory()
+
+func _on_body_3d_display_tooltip(node: Node) -> void:
+	if current_tooltip:
+		current_tooltip.queue_free()
+		current_tooltip = null
+	
+	if node == null:
+		return
+	
+	var scene = node.get_tooltip_scene()
+	current_tooltip = scene.instantiate()
+	tooltip_pivot.add_child(current_tooltip)
+	current_tooltip.setup(node)
 
 func update_crafting_panel() -> void:
 	for child in recipe_list.get_children():

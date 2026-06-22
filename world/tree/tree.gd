@@ -18,7 +18,7 @@ func _do_work(work_force: int = 1, pos: Vector3 = Vector3.ZERO, entityPos: Vecto
 func _on_work_finished(_pos: Vector3, _entityPos: Vector3 = Vector3.ZERO) -> void:
 	for i in output_amount:
 		var spawnPos = _spawn_item_height(global_position, i)
-		ItemSpawner.spawn_item(output, spawnPos, Vector3.ZERO, 5.0)
+		ItemSpawner.spawn_item(output, spawnPos, Vector3.ZERO, 0.3)
 
 	queue_free()
 	

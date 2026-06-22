@@ -26,8 +26,7 @@ transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.96692085, 0)
 shape = SubResource("ConcavePolygonShape3D_rwgxs")
 
 [node name="Label3D" type="Label3D" parent="." unique_id=950491592]
-transform = Transform3D(0.9759662, 0, -0.21792181, 0, 1, 0, 0.21792181, 0, 0.9759662, 0, 3.387507, 0)
+transform = Transform3D(-0.676709, 0, -0.7362506, 0, 1, 0, 0.7362506, 0, -0.676709, 0, 3.387507, 0)
 billboard = 1
-no_depth_test = true
 text = "300/300"
 font_size = 72

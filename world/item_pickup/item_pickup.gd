@@ -6,6 +6,8 @@ var is_hovered = false;
 
 const MATERIAL_HIGHLIGHT := preload("res://assets/materials/mesh_highlight.tres")
 
+const TOOLTIP_SCENE = preload("res://world/item_pickup/ItemPickupTooltip.tscn")
+
 @onready var visual_pivot: Marker3D = $VisualPivot
 @export var mesh: MeshInstance3D
 @export var item_data: ItemData:
@@ -59,3 +61,6 @@ func set_highlight(enabled: bool) -> void:
 		mesh.material_overlay = MATERIAL_HIGHLIGHT
 	else: 
 		mesh.material_overlay = null
+
+func get_tooltip_scene() -> PackedScene:
+	return TOOLTIP_SCENE

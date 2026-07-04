@@ -2,6 +2,7 @@ extends Resource
 class_name CraftingRecipe
 
 @export var name: String = "No Name"
+@export var description: String = "No Description"
 @export var input: Dictionary[ItemData, int] = {} 
 @export var output: Dictionary[ItemData, int] = {} 
 

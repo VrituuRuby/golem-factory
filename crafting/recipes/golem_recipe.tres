@@ -8,11 +8,12 @@
 [resource]
 script = ExtResource("2_17sse")
 name = "Golem"
+description = "A helping golem made with magic."
 input = Dictionary[ExtResource("1_mpdat"), int]({
-ExtResource("2_16w54"): 1
+ExtResource("2_16w54"): 5
 })
 output = Dictionary[ExtResource("1_mpdat"), int]({
 ExtResource("3_16w54"): 1
 })
-required_work = 5
+required_work = 15
 metadata/_custom_type_script = "uid://d2foyp2cef3ee"

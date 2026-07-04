@@ -24,6 +24,8 @@ var current_hovered: Node3D = null
 
 signal display_progress(workable: Workable)
 signal display_tooltip(node: Node)
+signal display_interface(node: Node)
+signal close_interface()
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -61,27 +63,40 @@ func _unhandled_input(event: InputEvent) -> void:
 		Inventory.scroll_slot(-1)
 
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("open"):
+		_open_interface()
+
 	if(Input.is_action_just_pressed("action")):
 		_interact()
 		pass
 	if Input.is_action_just_pressed("sub_action"):
 		_interact_secondary()
+	
+	if Input.is_action_just_pressed("escape"):
+		emit_signal("close_interface")
+
 
 	var collider := ray_cast.get_collider() as Node
+	if collider == null: return;
 	if collider != current_hovered:
-		if current_hovered:
+		if current_hovered and current_hovered.has_method("set_highlight"):
 			current_hovered.set_highlight(false)
-			current_hovered = null
-			return;
 
-		if collider.has_method("set_highlight"):
-			current_hovered = collider
+		current_hovered = collider
+
+		if current_hovered and current_hovered.has_method("set_highlight"):
 			current_hovered.set_highlight(true)
 		
 		if collider.has_method("get_tooltip_scene"):
 			display_tooltip.emit(collider)
 		else:
 			display_tooltip.emit(null)
+
+	if Input.is_action_just_pressed("X"):
+		if collider.has_method("unmount"):
+			collider.unmount()
+
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -119,7 +134,15 @@ func _headbob(t: float) -> Vector3:
 	pos.x = cos(t * BOB_FREQUENCY / 2) * BOB_AMPLITUDE
 	return pos
 
+func _open_interface() -> void:
+	if(not ray_cast.is_colliding()): return
+	var collider := ray_cast.get_collider() as Node
+
+	if collider.has_method("get_interface_scene"):
+		display_interface.emit(collider)
+
 func _interact() -> void:
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED: return
 	if(not ray_cast.is_colliding()): return
 	var collider := ray_cast.get_collider() as Node
 
@@ -137,6 +160,8 @@ func _interact() -> void:
 				collider.add_item(selected_item)
 
 func _interact_secondary() -> void:
+	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED: return
+
 	if(not ray_cast.is_colliding()): return
 	var collider := ray_cast.get_collider() as Node
 	if collider is Interactable:

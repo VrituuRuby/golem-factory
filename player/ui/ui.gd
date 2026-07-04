@@ -18,6 +18,7 @@ var is_crafting_panel_open := false
 
 @export var tooltip_pivot: Control
 var current_tooltip: Node = null
+var current_interface: Node = null
 
 func _ready() -> void:
 	Inventory.update.connect(_update_inventory)
@@ -25,18 +26,14 @@ func _ready() -> void:
 	update_crafting_panel()
 	_update_inventory()
 
-func _on_body_3d_display_tooltip(node: Node) -> void:
-	if current_tooltip:
-		current_tooltip.queue_free()
-		current_tooltip = null
+func close_interface() -> void:
+	if is_crafting_panel_open:
+		_toggle_build_panel()
+	if current_interface:
+		current_interface.queue_free()
+		current_interface = null
 	
-	if node == null:
-		return
-	
-	var scene = node.get_tooltip_scene()
-	current_tooltip = scene.instantiate()
-	tooltip_pivot.add_child(current_tooltip)
-	current_tooltip.setup(node)
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func update_crafting_panel() -> void:
 	for child in recipe_list.get_children():
@@ -88,6 +85,7 @@ func _process(_delta: float) -> void:
 		_toggle_build_panel()
 
 func _toggle_build_panel() -> void:
+	if current_interface: return
 	is_crafting_panel_open = not is_crafting_panel_open
 	if is_crafting_panel_open:
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -113,3 +111,39 @@ func _on_character_body_3d_display_progress(interactable: Interactable) -> void:
 			_progress_bar.visible = true
 			var progress = float(interactable.work_counter) / float(interactable.required_work) * 100.0
 			_progress_bar.value = progress
+
+func _on_body_3d_display_tooltip(node: Node) -> void:
+	if current_tooltip:
+		current_tooltip.queue_free()
+		current_tooltip = null
+	
+	if node == null:
+		return
+	
+	var scene = node.get_tooltip_scene()
+	current_tooltip = scene.instantiate()
+	tooltip_pivot.add_child(current_tooltip)
+	current_tooltip.setup(node)
+
+func _on_body_3d_display_interface(node: Node) -> void:
+	if node == null:
+		return
+
+	if current_interface:
+		_close_interface()
+		return
+
+	_close_interface()
+
+	var scene = node.get_interface_scene()
+	var interface = scene.instantiate()
+	current_interface = interface
+	self.add_child(interface)
+	interface.setup(node)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func _close_interface() -> void:
+	if current_interface:
+		current_interface.queue_free()
+		current_interface = null
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

@@ -182,5 +182,7 @@ offset_right = 33.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[connection signal="close_interface" from="." to="CanvasLayer/Control" method="close_interface"]
+[connection signal="display_interface" from="." to="CanvasLayer/Control" method="_on_body_3d_display_interface"]
 [connection signal="display_progress" from="." to="CanvasLayer/Control" method="_on_character_body_3d_display_progress"]
 [connection signal="display_tooltip" from="." to="CanvasLayer/Control" method="_on_body_3d_display_tooltip"]

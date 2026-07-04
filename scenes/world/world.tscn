@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://h1e1qvi7kq7l" path="res://items/resources/tree_branch.tres" id="5_bq33v"]
 [ext_resource type="Resource" uid="uid://btujepeutb7ge" path="res://items/resources/stone.tres" id="5_v5dby"]
 [ext_resource type="Resource" uid="uid://b0fufm160to34" path="res://items/resources/wood.tres" id="7_j2gmx"]
+[ext_resource type="PackedScene" uid="uid://cmv6kbt6wusq2" path="res://buildings/stations/crafting_station/crafting_station.tscn" id="8_j2gmx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nnsk1"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -130,3 +131,6 @@ item_data = ExtResource("5_v5dby")
 [node name="ItemPickup12" parent="." unique_id=896211882 instance=ExtResource("4_v5dby")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -4)
 item_data = ExtResource("7_j2gmx")
+
+[node name="CraftingStation" parent="." unique_id=42935572 instance=ExtResource("8_j2gmx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)

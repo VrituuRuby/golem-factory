@@ -1,8 +1,16 @@
 [gd_scene format=3 uid="uid://di0mf7ym06ngw"]
 
 [ext_resource type="Script" uid="uid://bmoyh8o25rq7d" path="res://world/item_pickup/item_pickup.gd" id="1_o5jsg"]
-[ext_resource type="Resource" uid="uid://bsnywftvke3eq" path="res://items/placeables/placeable_golem.tres" id="2_otlqd"]
-[ext_resource type="ArrayMesh" uid="uid://cb6v22qsaxafo" path="res://assets/placeholder/golem_placeholder.mesh" id="3_h54wh"]
+[ext_resource type="Resource" uid="uid://mwfih8dvmsy8" path="res://items/resources/grass_fiber.tres" id="2_otlqd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44nc6"]
+albedo_color = Color(0.4130133, 0.64, 0.1536, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_eh68y"]
+material = SubResource("StandardMaterial3D_44nc6")
+top_radius = 0.25
+bottom_radius = 0.15
+height = 0.8
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_lgqak"]
 radius = 0.25
@@ -16,11 +24,11 @@ mesh = NodePath("VisualPivot/MeshInstance3D")
 item_data = ExtResource("2_otlqd")
 
 [node name="VisualPivot" type="Marker3D" parent="." unique_id=130602843]
-transform = Transform3D(-0.36471066, 0, -0.93112093, 0, 1, 0, 0.93112093, 0, -0.36471066, 0, -0.12063319, 0)
+transform = Transform3D(0.67323923, 0, -0.7394247, 0, 1, 0, 0.7394247, 0, 0.67323923, 0, -0.024289757, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="VisualPivot" unique_id=1507732020]
-transform = Transform3D(0.428, 0, 0, 0, 0.428, 0, 0, 0, 0.428, 0, -0.08, 0)
-mesh = ExtResource("3_h54wh")
+transform = Transform3D(0.3, 0, 0, 0, 0.2516012, -0.16339172, 0, 0.16339172, 0.2516012, 0, 0, 0)
+mesh = SubResource("CylinderMesh_eh68y")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=79782807]

@@ -63,14 +63,14 @@ func _update_inventory() -> void:
 		child.queue_free()
 
 	for i in range(Inventory.slots.size()):
-		var item = Inventory.slots[i]
+		var slot = Inventory.slots[i]
 		var label: Label = LABEL.instantiate()
 
 		label.label_settings = label.label_settings.duplicate()
 		label.label_settings.outline_size = 0
 
-		if item:
-			label.text = "[%s]" % item.name
+		if slot.itemData:
+			label.text = "[%dx %s]" % [slot.amount, slot.itemData.name]
 		else:
 			label.text = '[Empty]'
 			label.label_settings.font_color = Color(1, 1, 1, .5)

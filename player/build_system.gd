@@ -12,7 +12,7 @@ const GRID_SIZE = .25
 
 func _ready() -> void:
 	Inventory.update.connect(func ():
-		var selected_item = Inventory.slots[Inventory.selected_slot]
+		var selected_item = Inventory.slots[Inventory.selected_slot].itemData
 		if selected_item is PlaceableItemData:
 			_on_select_blueprint(selected_item)
 		else:

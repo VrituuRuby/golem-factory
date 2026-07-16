@@ -52,7 +52,7 @@ func launch(direction: Vector3, spawn_force: float = 5):
 
 	apply_central_impulse(direction.normalized() * spawn_force)
 
-func pickup() -> void:
+func on_action() -> void:
 	if Inventory.add_item(item_data):
 		queue_free()
 

@@ -1,14 +1,15 @@
 [gd_resource type="Resource" script_class="PlaceableItemData" format=3 uid="uid://26drrwsvx88s"]
 
 [ext_resource type="Script" uid="uid://dcogq2ug8bbbh" path="res://items/placeable_item_data.gd" id="1_l8plb"]
-[ext_resource type="ArrayMesh" uid="uid://biwdur8n5w1hn" path="res://assets/placeholder/crafting_station.obj" id="1_yatqq"]
 [ext_resource type="PackedScene" uid="uid://cmv6kbt6wusq2" path="res://buildings/stations/crafting_station/crafting_station.tscn" id="2_mujlg"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_q8x4s"]
 
 [resource]
 script = ExtResource("1_l8plb")
 scene = ExtResource("2_mujlg")
 name = "Crafting Station"
-mesh = ExtResource("1_yatqq")
+mesh = SubResource("CylinderMesh_q8x4s")
 mesh_scale = 0.27
 mesh_offset = Vector3(0, -0.06, 0)
 metadata/_custom_type_script = "uid://dcogq2ug8bbbh"

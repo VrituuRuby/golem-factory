@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://b70pmfpyxf1r1"]
+
+[ext_resource type="Script" uid="uid://bcfx3l3da8468" path="res://world/grass/grass.gd" id="1_wxher"]
+[ext_resource type="Resource" uid="uid://mwfih8dvmsy8" path="res://items/resources/grass_fiber.tres" id="2_atl6w"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7fqpk"]
+height = 0.6
+radius = 0.15
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x31by"]
+albedo_color = Color(0.39863503, 0.61, 0.2257, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ywf6o"]
+top_radius = 0.15
+bottom_radius = 0.1
+height = 0.6
+
+[node name="Grass" type="StaticBody3D" unique_id=1630521342]
+collision_layer = 16
+script = ExtResource("1_wxher")
+output = ExtResource("2_atl6w")
+available_amount = 1
+required_work = 1
+action_name = "Pull it"
+metadata/_custom_type_script = "uid://bphu8bsd55ijh"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1725398612]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.27478814, 0)
+shape = SubResource("CylinderShape3D_7fqpk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=417814726]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2755825, 0)
+material_override = SubResource("StandardMaterial3D_x31by")
+mesh = SubResource("CylinderMesh_ywf6o")

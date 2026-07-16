@@ -46,10 +46,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		Inventory.selected_slot = 2
 
 	if Input.is_action_just_pressed("drop"):
-		var item = Inventory.slots[Inventory.selected_slot]
-		if item:
+		var slot = Inventory.slots[Inventory.selected_slot]
+		if !slot.is_empty():
 			var item_pickup = item_pickup.instantiate() as ItemPickup
-			item_pickup.item_data = item
+			item_pickup.item_data = slot.itemData
 			item_pickup.global_position = global_position + Vector3(0, 1.5, 0)
 			var direction = -camera.global_transform.basis.z
 			item_pickup.apply_central_impulse(direction * 5)
@@ -63,14 +63,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		Inventory.scroll_slot(-1)
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("open"):
-		_open_interface()
+	if Input.is_action_just_pressed("interact"):
+		on_interact()
 
 	if(Input.is_action_just_pressed("action")):
-		_interact()
+		on_action()
 		pass
 	if Input.is_action_just_pressed("sub_action"):
-		_interact_secondary()
+		on_secondary_action()
 	
 	if Input.is_action_just_pressed("escape"):
 		emit_signal("close_interface")
@@ -92,7 +92,7 @@ func _process(delta: float) -> void:
 		else:
 			display_tooltip.emit(null)
 
-	if Input.is_action_just_pressed("X"):
+	if Input.is_action_just_pressed("dismantle"):
 		if collider.has_method("unmount"):
 			collider.unmount()
 
@@ -134,20 +134,20 @@ func _headbob(t: float) -> Vector3:
 	pos.x = cos(t * BOB_FREQUENCY / 2) * BOB_AMPLITUDE
 	return pos
 
-func _open_interface() -> void:
+func on_interact() -> void:
 	if(not ray_cast.is_colliding()): return
 	var collider := ray_cast.get_collider() as Node
 
 	if collider.has_method("get_interface_scene"):
 		display_interface.emit(collider)
 
-func _interact() -> void:
+func on_action() -> void:
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED: return
 	if(not ray_cast.is_colliding()): return
 	var collider := ray_cast.get_collider() as Node
 
-	if collider.has_method("pickup"):
-		collider.pickup()
+	if collider.has_method("on_action"):
+		collider.on_action()
 		return;
 
 	if(collider is Interactable):
@@ -159,14 +159,14 @@ func _interact() -> void:
 			if selected_item:
 				collider.add_item(selected_item)
 
-func _interact_secondary() -> void:
+func on_secondary_action() -> void:
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED: return
 
 	if(not ray_cast.is_colliding()): return
 	var collider := ray_cast.get_collider() as Node
 	if collider is Interactable:
 		if collider is CraftingStation:
-			collider.add_item(Inventory.slots[Inventory.selected_slot])
+			collider.add_item(Inventory.slots[Inventory.selected_slot].itemData)
 		if collider is Stockpile and not golem_manager.selected_golem:
 			collider.remove_item()
 	_handle_golem()

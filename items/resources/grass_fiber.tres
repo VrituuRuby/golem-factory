@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://mwfih8dvmsy8"]
+
+[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://items/item_data.gd" id="1_1yypg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_44nc6"]
+albedo_color = Color(0.4130133, 0.64, 0.1536, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_eh68y"]
+material = SubResource("StandardMaterial3D_44nc6")
+top_radius = 0.25
+bottom_radius = 0.15
+height = 0.8
+
+[resource]
+script = ExtResource("1_1yypg")
+name = "Grass Fiber"
+mesh = SubResource("CylinderMesh_eh68y")
+mesh_scale = 0.3
+mesh_rotation = Vector3(33, 0, 0)
+metadata/_custom_type_script = "uid://cg4gop0hq8bt7"

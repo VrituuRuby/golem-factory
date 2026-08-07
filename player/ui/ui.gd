@@ -1,4 +1,5 @@
 extends Control
+class_name UI
 
 const LABEL = preload("res://player/ui/resourse_label.tscn")
 
@@ -17,12 +18,14 @@ const LABEL = preload("res://player/ui/resourse_label.tscn")
 var is_crafting_panel_open := false
 
 @export var tooltip_pivot: Control
+@export var player: PlayerClass
 var current_tooltip: Node = null
 var current_interface: Node = null
+var player_inventory: Inventory
+
 
 func _ready() -> void:
-	Inventory.update.connect(_update_inventory)
-
+	player_inventory = player.inventory
 	update_crafting_panel()
 	_update_inventory()
 
@@ -41,7 +44,7 @@ func update_crafting_panel() -> void:
 
 	for recipe in recipes:
 		var recipe_option = recipe_option_scene.instantiate()
-		recipe_option.setup(recipe)
+		recipe_option.setup(recipe, player_inventory)
 
 		recipe_option.craft_pressed.connect(handle_craft)
 
@@ -51,19 +54,19 @@ func handle_craft(recipe: CraftingRecipe) -> void:
 	_toggle_build_panel()
 	for item in recipe.input.keys():
 		var amount = recipe.input[item]
-		Inventory.remove_item_anywhere(item, amount)
+		player_inventory.remove_item_anywhere(item, amount)
 
 	# TODO: This is only working if recipe returns a single item, which is what manually crafting does rn. 
 	var output = recipe.output.keys()[0] 
-	Inventory.add_item(output)
+	player_inventory.add_item(output)
 	update_crafting_panel()
 
 func _update_inventory() -> void:
 	for child in inventory_slots.get_children():
 		child.queue_free()
 
-	for i in range(Inventory.slots.size()):
-		var slot = Inventory.slots[i]
+	for i in range(player_inventory.slots.size()):
+		var slot = player_inventory.slots[i]
 		var label: Label = LABEL.instantiate()
 
 		label.label_settings = label.label_settings.duplicate()
@@ -74,7 +77,7 @@ func _update_inventory() -> void:
 		else:
 			label.text = '[Empty]'
 			label.label_settings.font_color = Color(1, 1, 1, .5)
-		if Inventory.selected_slot == i:
+		if player_inventory.selected_slot == i:
 			label.label_settings.font_color = Color.YELLOW
 
 		inventory_slots.add_child(label)

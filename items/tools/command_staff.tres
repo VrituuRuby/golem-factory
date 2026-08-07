@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ToolItemData" format=3 uid="uid://jfp8tiv442jj"]
+
+[ext_resource type="Script" uid="uid://4s5uqty05xwh" path="res://items/tool_item_data.gd" id="1_fruyr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_guf5o"]
+
+[resource]
+script = ExtResource("1_fruyr")
+tool_type = 2
+name = "Command Staff"
+mesh = SubResource("BoxMesh_guf5o")
+stackable = false
+max_stack = 1
+metadata/_custom_type_script = "uid://4s5uqty05xwh"

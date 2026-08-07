@@ -27,8 +27,9 @@ func set_recipe(recipe: CraftingRecipe) -> void:
 	update_can_craft()
 	return
 
-func add_item(item: ItemData) -> void:
-	print(item)
+func add_item(actor) -> void:
+	var selected_slot = actor.inventory.selected_slot
+	var item = actor.inventory.slots[selected_slot].itemData
 	if (not selected_recipe):
 		print("No recipe selected")
 		return
@@ -48,7 +49,7 @@ func add_item(item: ItemData) -> void:
 		return
 
 	inventory[item] = inventory.get(item, 0) + 1
-	Inventory.remove_selected()
+	actor.inventory.remove_selected()
 	update_can_craft()
 	
 func update_can_craft():
@@ -65,8 +66,8 @@ func update_can_craft():
 			can_work = false
 			return
 
-func _on_work_finished(pos: Vector3, _entityPos: Vector3 = Vector3.ZERO) -> void:
-	super._on_work_finished(pos)
+func _on_work_finished(actor: Actor = null) -> void:
+	super._on_work_finished(actor)
 
 	for key in selected_recipe.output.keys():
 		var amount = selected_recipe.output.get(key)
@@ -74,7 +75,7 @@ func _on_work_finished(pos: Vector3, _entityPos: Vector3 = Vector3.ZERO) -> void
 		for i in range(amount):
 			var item = ITEM_PICKUP_SCN.instantiate() as ItemPickup
 			item.item_data = key
-			item.global_position = pos
+			item.global_position = actor.global_position
 
 			get_tree().get_root().add_child(item)
 

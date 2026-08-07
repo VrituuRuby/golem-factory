@@ -11,12 +11,18 @@ func _ready() -> void:
 	can_work = true;
 	current_amount = available_amount
 
-func _on_work_finished(pos: Vector3, entityPos: Vector3 = Vector3.ZERO) -> void:
-	super._on_work_finished(pos)
+func _on_work_finished(actor: Actor = null) -> void:
+	super._on_work_finished(actor)
 	available_amount -= 1
 
-	var spawnDir = entityPos - pos
-	ItemSpawner.spawn_item(output, pos, spawnDir, 1.0)
+	var entity_pos = Vector3.ZERO
+
+	if actor:
+		entity_pos = actor.global_position
+
+	var spawnDir = entity_pos - actor.global_position
+	var spawn_position = actor.ray_cast.get_collision_point()
+	ItemSpawner.spawn_item(output, spawn_position, spawnDir, 1.0)
 
 	if available_amount <= 0:
 		queue_free();

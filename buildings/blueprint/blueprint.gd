@@ -67,11 +67,11 @@ func place() -> bool:
 	add_child(build_collision)
 	return true
 
-func _do_work(work_force: int = 1, pos: Vector3 = Vector3.ZERO, _entityPos: Vector3 = Vector3.ZERO) -> void:
+func _do_work(actor: Actor, work_force: int = 1) -> void:
 	if not is_placed: return;
-	super._do_work(work_force, pos)
+	super._do_work(actor, work_force)
 
-func _on_work_finished(pos: Vector3, _entityPos: Vector3 = Vector3.ZERO) -> void:
+func _on_work_finished(actor: Actor = null) -> void:
 	if not is_placed: return
 	build_node.global_position = self.global_position
 	build_node.rotation = self.rotation

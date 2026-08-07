@@ -35,19 +35,24 @@ action_name = "Chop"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3119574, 0)
 shape = SubResource("CylinderShape3D_8irr8")
 
-[node name="Body" type="MeshInstance3D" parent="." unique_id=1894518652]
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." unique_id=576775160]
+
+[node name="Body" type="MeshInstance3D" parent="MultiMeshInstance3D" unique_id=1894518652]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6669922, 0)
 mesh = SubResource("CylinderMesh_tphbg")
+skeleton = NodePath("../..")
 
-[node name="Leaf" type="MeshInstance3D" parent="." unique_id=2112180373]
+[node name="Leaf" type="MeshInstance3D" parent="MultiMeshInstance3D" unique_id=2112180373]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2188044, 0)
 mesh = SubResource("CylinderMesh_8obal")
+skeleton = NodePath("../..")
 
-[node name="Leaf3" type="MeshInstance3D" parent="." unique_id=1403717693]
+[node name="Leaf3" type="MeshInstance3D" parent="MultiMeshInstance3D" unique_id=1403717693]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0051140785, 7.5407133, 0.012048721)
 mesh = SubResource("CylinderMesh_8obal")
 skeleton = NodePath("../Leaf2")
 
-[node name="Leaf2" type="MeshInstance3D" parent="." unique_id=2031814072]
+[node name="Leaf2" type="MeshInstance3D" parent="MultiMeshInstance3D" unique_id=2031814072]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0051140785, 5.7724185, 0.012048721)
 mesh = SubResource("CylinderMesh_8obal")
+skeleton = NodePath("../..")

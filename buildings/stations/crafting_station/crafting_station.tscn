@@ -4,6 +4,8 @@
 [ext_resource type="Resource" uid="uid://bj663auftfqgu" path="res://crafting/recipes/planks_recipe.tres" id="2_bd042"]
 [ext_resource type="Script" uid="uid://d2foyp2cef3ee" path="res://crafting/crafting_recipe.gd" id="2_n5t67"]
 [ext_resource type="Resource" uid="uid://qrj85a328iu3" path="res://crafting/recipes/golem_recipe.tres" id="3_asykb"]
+[ext_resource type="Resource" uid="uid://15w1msbmnpo1" path="res://crafting/recipes/stockpile.tres" id="4_n5t67"]
+[ext_resource type="Resource" uid="uid://ba330a7a5kmtu" path="res://crafting/recipes/command_staff.tres" id="6_asykb"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_tr53r"]
 height = 0.6513672
@@ -13,7 +15,7 @@ height = 0.65
 
 [node name="CraftingStation" type="StaticBody3D" unique_id=42935572]
 script = ExtResource("1_og0c8")
-recipes = Array[ExtResource("2_n5t67")]([ExtResource("3_asykb")])
+recipes = Array[ExtResource("2_n5t67")]([ExtResource("3_asykb"), ExtResource("4_n5t67"), ExtResource("2_bd042"), ExtResource("6_asykb")])
 selected_recipe = ExtResource("2_bd042")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1885162724]

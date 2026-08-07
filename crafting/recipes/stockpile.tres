@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="CraftingRecipe" format=3 uid="uid://15w1msbmnpo1"]
+
+[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://items/item_data.gd" id="1_hi0dk"]
+[ext_resource type="Resource" uid="uid://bc08ccvwoefi3" path="res://items/resources/planks.tres" id="2_ru6go"]
+[ext_resource type="Script" uid="uid://d2foyp2cef3ee" path="res://crafting/crafting_recipe.gd" id="2_x7vig"]
+[ext_resource type="Resource" uid="uid://d28flukx1nv88" path="res://items/placeables/stockpile.tres" id="3_ru6go"]
+
+[resource]
+script = ExtResource("2_x7vig")
+name = "Stockpile"
+description = "Holds only one type of Item, golens assigned to a stockpile will gather items in a 5 meter radius."
+input = Dictionary[ExtResource("1_hi0dk"), int]({
+ExtResource("2_ru6go"): 5
+})
+output = Dictionary[ExtResource("1_hi0dk"), int]({
+ExtResource("3_ru6go"): 1
+})
+required_work = 10
+station = 1
+metadata/_custom_type_script = "uid://d2foyp2cef3ee"

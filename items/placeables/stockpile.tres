@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="PlaceableItemData" format=3 uid="uid://d28flukx1nv88"]
+
+[ext_resource type="Script" uid="uid://dcogq2ug8bbbh" path="res://items/placeable_item_data.gd" id="1_43gpa"]
+[ext_resource type="ArrayMesh" uid="uid://biwdur8n5w1hn" path="res://assets/placeholder/crafting_station.obj" id="1_ddogh"]
+[ext_resource type="PackedScene" uid="uid://c1ui2abhvj7i" path="res://buildings/stockpile/stockpile.tscn" id="2_wus1v"]
+
+[resource]
+script = ExtResource("1_43gpa")
+scene = ExtResource("2_wus1v")
+name = "Stockpile"
+mesh = ExtResource("1_ddogh")
+stackable = false
+max_stack = 1
+metadata/_custom_type_script = "uid://dcogq2ug8bbbh"

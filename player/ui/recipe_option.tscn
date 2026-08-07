@@ -10,10 +10,12 @@ script/source = "extends Panel
 
 var recipe: CraftingRecipe
 var can_craft = true
+var player_inventory: Inventory
 
 signal craft_pressed(recipe: CraftingRecipe)
 
-func setup(crafting_recipe: CraftingRecipe):
+func setup(crafting_recipe: CraftingRecipe, inventory: Inventory):
+	player_inventory = inventory
 	recipe = crafting_recipe
 	
 	if not is_node_ready():
@@ -23,7 +25,7 @@ func setup(crafting_recipe: CraftingRecipe):
 	
 	for item in recipe.input.keys():
 		var amount = recipe.input[item]
-		if not Inventory.has_item(item, amount):
+		if not player_inventory.has_item(item, amount):
 			can_craft = false
 	
 	build_button.disabled = not can_craft

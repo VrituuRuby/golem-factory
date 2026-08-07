@@ -3,17 +3,21 @@ class_name BuildSystem
 
 @export var hand_target: Marker3D 
 @export var blueprint_scene: PackedScene
+@export var player: PlayerClass
 
 var blueprint: Blueprint = null;
-
 var desired_rotation := Vector3.ZERO
+
 
 const GRID_SIZE = .25
 
 func _ready() -> void:
-	Inventory.update.connect(func ():
-		var selected_item = Inventory.slots[Inventory.selected_slot].itemData
+	player.inventory.update.connect(func ():
+		var selected_slot = player.inventory.selected_slot
+		var selected_item = player.inventory.slots[selected_slot].itemData
+		print(selected_item)
 		if selected_item is PlaceableItemData:
+			print("Selected item is placeable")
 			_on_select_blueprint(selected_item)
 		else:
 			if blueprint:
@@ -39,7 +43,7 @@ func _handle_input():
 		if blueprint.place():
 			blueprint.rotation = desired_rotation
 			blueprint = null;
-			Inventory.remove_selected()
+			player.inventory.remove_selected()
 
 func _process(delta: float) -> void:
 	if blueprint == null: return

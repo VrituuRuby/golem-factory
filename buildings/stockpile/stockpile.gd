@@ -26,7 +26,10 @@ func decrease_quantity() -> void:
 	else:
 		action_name = "Stock %s (%d)" % [stock_item.name, quantity]
 
-func add_item(item: ItemData) -> void:
+func add_item(actor) -> void:
+	var selected_slot = actor.inventory.selected_slot
+	var item = actor.inventory.slots[selected_slot].itemData
+
 	if not item: return
 
 	if not stock_item: 
@@ -34,13 +37,17 @@ func add_item(item: ItemData) -> void:
 
 	if item != stock_item: return
 
-	Inventory.remove_item(Inventory.selected_slot)
+	actor.inventory.remove_item(selected_slot)
 	increase_quantity()
 
-func remove_item() -> void:
+func on_action(actor) -> void:
+	var selected_slot = actor.inventory.selected_slot
+	add_item(actor.inventory.slots[selected_slot].itemData)
+
+func on_secondary_action(actor) -> void:
 	if not stock_item: return
 
 	if quantity <= 0: return
 
-	Inventory.add_item(stock_item)
+	actor.inventory.add_item(stock_item)
 	decrease_quantity()

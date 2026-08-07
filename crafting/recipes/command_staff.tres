@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CraftingRecipe" format=3 uid="uid://ba330a7a5kmtu"]
+
+[ext_resource type="Script" uid="uid://cg4gop0hq8bt7" path="res://items/item_data.gd" id="1_lj1b6"]
+[ext_resource type="Resource" uid="uid://b0fufm160to34" path="res://items/resources/wood.tres" id="2_dtce8"]
+[ext_resource type="Script" uid="uid://d2foyp2cef3ee" path="res://crafting/crafting_recipe.gd" id="2_fr8u3"]
+[ext_resource type="Resource" uid="uid://jfp8tiv442jj" path="res://items/tools/command_staff.tres" id="3_r7t4j"]
+
+[resource]
+script = ExtResource("2_fr8u3")
+name = "Command Staff"
+input = Dictionary[ExtResource("1_lj1b6"), int]({
+ExtResource("2_dtce8"): 3
+})
+output = Dictionary[ExtResource("1_lj1b6"), int]({
+ExtResource("3_r7t4j"): 1
+})
+required_work = 10
+station = 1
+metadata/_custom_type_script = "uid://d2foyp2cef3ee"

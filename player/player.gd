@@ -1,9 +1,9 @@
-extends CharacterBody3D
+extends Actor
 class_name PlayerClass
 
 const item_pickup = preload("res://world/item_pickup/item_pickup.tscn")
 
-const SPEED = 5.0
+var SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const GRAVITY = 12;
 
@@ -14,11 +14,14 @@ const BOB_FREQUENCY = 2.5;
 const BOB_AMPLITUDE = 0.08;
 var t_bob = 0.0;
 
+var COMMAND_STAFF_ITEM = preload("res://items/tools/command_staff.tres")
+var AXE_ITEM = preload("res://items/tools/crude_axe.tres")
+
 @export var head: Node3D 
 @export var camera: Camera3D
-@export var ray_cast: RayCast3D
 
 @onready var golem_manager: GolemManager = $GolemManager
+@onready var ui: UI = $CanvasLayer/Control
 
 var current_hovered: Node3D = null
 
@@ -27,8 +30,16 @@ signal display_tooltip(node: Node)
 signal display_interface(node: Node)
 signal close_interface()
 
+var selected_golem: GolemClass = null	
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	ui.player_inventory = inventory
+	inventory.update.connect(ui._update_inventory)
+	inventory.add_item(COMMAND_STAFF_ITEM)
+	inventory.add_item(AXE_ITEM)
+	inventory.add_item(AXE_ITEM)
+	ui._update_inventory()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion && Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -37,16 +48,16 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 	
 	if Input.is_action_just_pressed("slot_1"):
-		Inventory.selected_slot = 0
+		inventory.selected_slot = 0
 
 	if Input.is_action_just_pressed("slot_2"):
-		Inventory.selected_slot = 1
+		inventory.selected_slot = 1
 
 	if Input.is_action_just_pressed("slot_3"):
-		Inventory.selected_slot = 2
+		inventory.selected_slot = 2
 
 	if Input.is_action_just_pressed("drop"):
-		var slot = Inventory.slots[Inventory.selected_slot]
+		var slot = inventory.slots[inventory.selected_slot]
 		if !slot.is_empty():
 			var item_pickup = item_pickup.instantiate() as ItemPickup
 			item_pickup.item_data = slot.itemData
@@ -54,13 +65,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			var direction = -camera.global_transform.basis.z
 			item_pickup.apply_central_impulse(direction * 5)
 			get_tree().get_root().add_child(item_pickup)
-			Inventory.remove_selected()
+			inventory.remove_selected()
 
 	if event.is_action_pressed("scroll_up"):
-		Inventory.scroll_slot(1)
+		inventory.scroll_slot(1)
 
 	if event.is_action_pressed("scroll_down"):
-		Inventory.scroll_slot(-1)
+		inventory.scroll_slot(-1)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):
@@ -75,20 +86,28 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("escape"):
 		emit_signal("close_interface")
 
+	if Input.is_action_just_pressed("sprint"):
+		if SPEED == 5.0:
+			SPEED = 10.0
+		else:
+			SPEED = 5.0
+
 
 	var collider := ray_cast.get_collider() as Node
-	if collider == null: return;
 	if collider != current_hovered:
 		if current_hovered and current_hovered.has_method("set_highlight"):
 			current_hovered.set_highlight(false)
-
-		current_hovered = collider
-
-		if current_hovered and current_hovered.has_method("set_highlight"):
-			current_hovered.set_highlight(true)
 		
-		if collider.has_method("get_tooltip_scene"):
-			display_tooltip.emit(collider)
+		current_hovered = collider
+		
+		if current_hovered:
+			if current_hovered.has_method("set_highlight"):
+				current_hovered.set_highlight(true)
+			
+			if current_hovered.has_method("get_tooltip_scene"):
+				display_tooltip.emit(current_hovered)
+			else:
+				display_tooltip.emit(null)
 		else:
 			display_tooltip.emit(null)
 
@@ -147,29 +166,19 @@ func on_action() -> void:
 	var collider := ray_cast.get_collider() as Node
 
 	if collider.has_method("on_action"):
-		collider.on_action()
+		collider.on_action(self)
 		return;
-
 	if(collider is Interactable):
 		if (collider is Workable):
-			var collision_position := ray_cast.get_collision_point()
-			collider._do_work(1,collision_position, global_position)
-		if (collider is Stockpile):
-			var selected_item := Inventory.slots[Inventory.selected_slot]
-			if selected_item:
-				collider.add_item(selected_item)
+			collider._do_work(self)
 
 func on_secondary_action() -> void:
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED: return
-
 	if(not ray_cast.is_colliding()): return
 	var collider := ray_cast.get_collider() as Node
-	if collider is Interactable:
-		if collider is CraftingStation:
-			collider.add_item(Inventory.slots[Inventory.selected_slot].itemData)
-		if collider is Stockpile and not golem_manager.selected_golem:
-			collider.remove_item()
-	_handle_golem()
+	if collider.has_method("on_secondary_action"):
+		collider.on_secondary_action(self)
+
 
 func _get_progress():
 	var collider := ray_cast.get_collider() as Node
@@ -180,16 +189,4 @@ func _get_progress():
 
 
 func _handle_golem() -> void:
-	if(not ray_cast.is_colliding()): return
-
-	var collider := ray_cast.get_collider() as Node
-	print(collider)
-	if golem_manager.selected_golem == null: 
-		if(collider is GolemClass):
-			golem_manager.set_golem(collider as GolemClass)
-	else:
-		if(collider is Workable):
-			golem_manager.assign_workable(collider as Workable)
-		if (collider is Stockpile):
-			golem_manager.selected_golem.assign_stockpile(collider as Stockpile)
-			golem_manager.selected_golem = null
+	pass

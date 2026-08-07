@@ -1,43 +1,50 @@
 extends Node
+class_name Inventory
 
 signal update()
 
-var slots : Array[InventorySlot] = [
-	InventorySlot.new(),
-	InventorySlot.new(),
-	InventorySlot.new(),
-]
+@export var max_slot_count := 1
+
+var slots : Array[InventorySlot] = []
 
 var _selected_slot := 0
 
-var selected_slot:
-	get: return _selected_slot
+var selected_slot: int:
+	get: 
+		return _selected_slot
 	set(value):
 		_selected_slot = value	
-		call_update()
+		update.emit()
 
-func call_update() -> void:
-	update.emit()
+
+func get_selected_slot() -> InventorySlot:
+	return slots[selected_slot]
+
+func _ready():
+	slots.clear()
+
+	for i in max_slot_count:
+		slots.append(InventorySlot.new())
 
 func add_item(item: ItemData) -> bool:
 	if (item.stackable):
 		for slot in slots: 
 			if slot.itemData == item and slot.amount < item.max_stack:
 				slot.amount += 1
-				call_update()
+				update.emit()
 				return true
 
 	if slots[selected_slot].is_empty():
 		slots[selected_slot].itemData = item
 		slots[selected_slot].amount = 1
-		call_update()
+		update.emit()
 		return true
 	
 	for slot in slots:
 		if slot.is_empty():
 			slot.itemData = item
 			slot.amount = 1
-			call_update()
+			update.emit()
 			return true
 	return false
 
@@ -53,7 +60,7 @@ func remove_item(index: int, amount: int = 1) -> void:
 	if slot.amount <= 0:
 		slot.itemData = null
 		slot.amount = 0
-	call_update()
+	update.emit()
 
 func remove_selected(amount: int = 1) -> void:
 	remove_item(selected_slot, amount)
@@ -66,7 +73,7 @@ func scroll_slot(direction: int) -> void:
 		selected_slot = 0
 	else:
 		selected_slot += direction
-	call_update()
+	update.emit()
 
 func has_item(item: ItemData, amount: int = 1) -> bool:
 	var total := 0

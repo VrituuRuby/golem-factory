@@ -9,6 +9,8 @@
 [ext_resource type="Resource" uid="uid://b0fufm160to34" path="res://items/resources/wood.tres" id="7_j2gmx"]
 [ext_resource type="PackedScene" uid="uid://cmv6kbt6wusq2" path="res://buildings/stations/crafting_station/crafting_station.tscn" id="8_j2gmx"]
 [ext_resource type="PackedScene" uid="uid://b70pmfpyxf1r1" path="res://world/grass/grass.tscn" id="9_1yooq"]
+[ext_resource type="PackedScene" uid="uid://i0a7i2fen1ny" path="res://buildings/stations/tree_farm/tree_farm.tscn" id="10_gb53w"]
+[ext_resource type="PackedScene" uid="uid://5atsml03bxwc" path="res://golemns/golem.tscn" id="11_5qq27"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_nnsk1"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -478,4 +480,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.645493, 0.014886447, -14.7
 [node name="Grass5" parent="." unique_id=448512887 instance=ExtResource("9_1yooq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.645493, 0.014886447, -14.779924)
 
-[connection signal="close_interface" from="CharacterBody3D" to="CharacterBody3D/CanvasLayer/Control" method="close_interface"]
+[node name="TreeFarm" parent="." unique_id=389818150 instance=ExtResource("10_gb53w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.117, 0, -0.032)
+
+[node name="Golem" parent="." unique_id=460895056 instance=ExtResource("11_5qq27")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.816973, 0.7733073, 0.34723723)

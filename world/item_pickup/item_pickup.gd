@@ -52,9 +52,10 @@ func launch(direction: Vector3, spawn_force: float = 5):
 
 	apply_central_impulse(direction.normalized() * spawn_force)
 
-func on_action() -> void:
-	if Inventory.add_item(item_data):
+func on_action(actor: Actor) -> void:
+	if actor.inventory.add_item(item_data):
 		queue_free()
+		
 
 func set_highlight(enabled: bool) -> void:
 	if enabled:

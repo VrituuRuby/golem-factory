@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bink5wgcy4brs" path="res://player/build_system.gd" id="2_gmlin"]
 [ext_resource type="PackedScene" uid="uid://dx17r7h7p7jbc" path="res://buildings/blueprint/blueprint.tscn" id="3_p47bc"]
 [ext_resource type="Script" uid="uid://dvtaudri20w56" path="res://golemns/golem_manager.gd" id="4_fm80t"]
+[ext_resource type="Script" uid="uid://qkpql6d7p72f" path="res://inventory/inventory.gd" id="4_yllr7"]
 [ext_resource type="Script" uid="uid://d2foyp2cef3ee" path="res://crafting/crafting_recipe.gd" id="6_h17s1"]
 [ext_resource type="Resource" uid="uid://d0wn423b1q5su" path="res://crafting/recipes/recipe_crafting_station.tres" id="7_h17s1"]
 [ext_resource type="Texture2D" uid="uid://ko5gsqgjig7m" path="res://assets/ui/under.png" id="8_h17s1"]
@@ -17,17 +18,23 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4wyf3"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=399614092 node_paths=PackedStringArray("head", "camera", "ray_cast") groups=["player"]]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=399614092 node_paths=PackedStringArray("head", "camera", "inventory", "ray_cast") groups=["player"]]
 collision_layer = 2
 script = ExtResource("1_3vyb7")
 head = NodePath("Head")
 camera = NodePath("Head/Camera3D")
+inventory = NodePath("Inventory")
 ray_cast = NodePath("Head/Camera3D/RayCast3D")
 
-[node name="BuildSystem" type="Node" parent="." unique_id=2122088186 node_paths=PackedStringArray("hand_target")]
+[node name="BuildSystem" type="Node" parent="." unique_id=2122088186 node_paths=PackedStringArray("hand_target", "player")]
 script = ExtResource("2_gmlin")
 hand_target = NodePath("../Head/Camera3D/SpringArm3D/HandTarget")
 blueprint_scene = ExtResource("3_p47bc")
+player = NodePath("..")
+
+[node name="Inventory" type="Node" parent="." unique_id=283882063]
+script = ExtResource("4_yllr7")
+max_slot_count = 5
 
 [node name="GolemManager" type="Node" parent="." unique_id=972232288]
 script = ExtResource("4_fm80t")
@@ -59,7 +66,7 @@ collision_mask = 31
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=217640580]
 
-[node name="Control" type="Control" parent="CanvasLayer" unique_id=588952744 node_paths=PackedStringArray("tooltip_pivot")]
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=588952744 node_paths=PackedStringArray("tooltip_pivot", "player")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,6 +77,7 @@ mouse_filter = 2
 script = ExtResource("2_dovo2")
 recipes = Array[ExtResource("6_h17s1")]([ExtResource("7_h17s1"), ExtResource("8_je7p5"), ExtResource("9_ebec5")])
 tooltip_pivot = NodePath("TooltipWrapper")
+player = NodePath("../..")
 
 [node name="InventorySlots" type="HBoxContainer" parent="CanvasLayer/Control" unique_id=352125726]
 layout_mode = 1

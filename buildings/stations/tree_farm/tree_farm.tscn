@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://i0a7i2fen1ny"]
+
+[ext_resource type="Script" uid="uid://b6daxb7by461g" path="res://buildings/stations/tree_farm/tree_farm.gd" id="1_knbsl"]
+[ext_resource type="PackedScene" uid="uid://b58de1ux5lkn" path="res://world/tree/tree.tscn" id="2_gogkm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ywf6o"]
+size = Vector3(0.5217285, 0.3713379, 0.62597656)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ywf6o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3pdv"]
+albedo_color = Color(0.5562579, 0.29856762, 0.18325436, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_knbsl"]
+material = SubResource("StandardMaterial3D_j3pdv")
+top_radius = 0.12
+height = 8.918
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_143eb"]
+albedo_color = Color(0.20816317, 0.54333776, 0.25260395, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_gogkm"]
+material = SubResource("StandardMaterial3D_143eb")
+top_radius = 0.0
+bottom_radius = 2.387
+height = 3.887
+
+[node name="TreeFarm" type="StaticBody3D" unique_id=389818150]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_knbsl")
+TREE_SCENE = ExtResource("2_gogkm")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1823663323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12072754, 0)
+shape = SubResource("BoxShape3D_ywf6o")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1648204528]
+transform = Transform3D(1.66, 0, 0, 0, 0.77871895, 0, 0, 0, 1.66, 0, -0.10044286, 0)
+mesh = SubResource("SphereMesh_ywf6o")
+
+[node name="MultiMeshInstance3D" type="MultiMeshInstance3D" parent="." unique_id=1030149530]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="Body" type="MeshInstance3D" parent="MultiMeshInstance3D" unique_id=2126533749]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.6669922, 0)
+mesh = SubResource("CylinderMesh_knbsl")
+skeleton = NodePath("../..")
+
+[node name="Leaf" type="MeshInstance3D" parent="MultiMeshInstance3D" unique_id=1473623886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.2188044, 0)
+mesh = SubResource("CylinderMesh_gogkm")
+skeleton = NodePath("../..")
+
+[node name="Leaf3" type="MeshInstance3D" parent="MultiMeshInstance3D" unique_id=869454211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0051140785, 7.5407133, 0.012048721)
+mesh = SubResource("CylinderMesh_gogkm")
+skeleton = NodePath("../Leaf2")
+
+[node name="Leaf2" type="MeshInstance3D" parent="MultiMeshInstance3D" unique_id=2080930713]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0051140785, 5.7724185, 0.012048721)
+mesh = SubResource("CylinderMesh_gogkm")
+skeleton = NodePath("../..")

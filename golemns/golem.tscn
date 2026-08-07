@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bm8oc33dqhqc" path="res://golemns/golem.gd" id="1_komo4"]
 [ext_resource type="ArrayMesh" uid="uid://cb6v22qsaxafo" path="res://assets/placeholder/golem_placeholder.mesh" id="2_4ykxi"]
+[ext_resource type="Script" uid="uid://qkpql6d7p72f" path="res://inventory/inventory.gd" id="2_smalw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_komo4"]
 
@@ -9,10 +10,15 @@
 radius = 0.234375
 height = 0.96313477
 
-[node name="Golem" type="CharacterBody3D" unique_id=460895056]
+[node name="Golem" type="CharacterBody3D" unique_id=460895056 node_paths=PackedStringArray("inventory", "ray_cast")]
 collision_layer = 8
 collision_mask = 3
 script = ExtResource("1_komo4")
+inventory = NodePath("Inventory")
+ray_cast = NodePath("RayCast3D")
+
+[node name="Inventory" type="Node" parent="." unique_id=392620183]
+script = ExtResource("2_smalw")
 
 [node name="Timer" type="Timer" parent="." unique_id=1726397447]
 
@@ -35,10 +41,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.493269, 0)
 visible = false
 billboard = 1
 modulate = Color(0.96139365, 0.9044705, 0, 1)
-text = "Stockpile has no selected item"
+text = "!"
 autowrap_mode = 3
 width = 370.0
-metadata/_edit_group_ = true
 
 [node name="StateLabel" type="Label3D" parent="." unique_id=978795403]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.148236, 0)

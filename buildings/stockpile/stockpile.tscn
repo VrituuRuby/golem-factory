@@ -25,6 +25,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07802189, 0)
 mesh = SubResource("BoxMesh_pyeni")
 
 [node name="DetectorArea" type="Area3D" parent="." unique_id=657714015]
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectorArea" unique_id=297365038]
 shape = SubResource("SphereShape3D_ly341")

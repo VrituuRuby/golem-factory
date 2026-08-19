@@ -27,7 +27,7 @@ func set_recipe(recipe: CraftingRecipe) -> void:
 	update_can_craft()
 	return
 
-func add_item(actor) -> void:
+func add_item(actor: Actor) -> void:
 	var selected_slot = actor.inventory.selected_slot
 	var item = actor.inventory.slots[selected_slot].itemData
 	if (not selected_recipe):
@@ -66,6 +66,9 @@ func update_can_craft():
 			can_work = false
 			return
 
+func on_secondary_action(actor: Actor) -> void:
+	add_item(actor)
+
 func _on_work_finished(actor: Actor = null) -> void:
 	super._on_work_finished(actor)
 
@@ -79,7 +82,9 @@ func _on_work_finished(actor: Actor = null) -> void:
 
 			get_tree().get_root().add_child(item)
 
-	inventory.clear()
+	for key in selected_recipe.input:
+		var amount = selected_recipe.input.get(key)
+		inventory[key] -= amount
 	update_can_craft()
 
 func get_interface_scene() -> PackedScene:

@@ -16,6 +16,7 @@ var t_bob = 0.0;
 
 var COMMAND_STAFF_ITEM = preload("res://items/tools/command_staff.tres")
 var AXE_ITEM = preload("res://items/tools/crude_axe.tres")
+var STOCKPILE = preload("res://items/placeables/stockpile.tres")
 
 @export var head: Node3D 
 @export var camera: Camera3D
@@ -38,7 +39,7 @@ func _ready():
 	inventory.update.connect(ui._update_inventory)
 	inventory.add_item(COMMAND_STAFF_ITEM)
 	inventory.add_item(AXE_ITEM)
-	inventory.add_item(AXE_ITEM)
+	inventory.add_item(STOCKPILE)
 	ui._update_inventory()
 
 func _unhandled_input(event: InputEvent) -> void:

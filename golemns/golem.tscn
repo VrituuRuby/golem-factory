@@ -38,10 +38,9 @@ shape = SubResource("CapsuleShape3D_rgatw")
 
 [node name="InfoLabel" type="Label3D" parent="." unique_id=1419482686]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.493269, 0)
-visible = false
 billboard = 1
 modulate = Color(0.96139365, 0.9044705, 0, 1)
-text = "!"
+text = "!asdf"
 autowrap_mode = 3
 width = 370.0
 

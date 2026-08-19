@@ -20,6 +20,8 @@ const TOOLTIP_SCENE = preload("res://world/item_pickup/ItemPickupTooltip.tscn")
 var hover_time := 0.0
 var base_position := Vector3.ZERO
 
+var reserved_pickup: bool = false
+
 func _update_visual():
 	mesh.scale = Vector3(item_data.mesh_scale, item_data.mesh_scale, item_data.mesh_scale)
 		

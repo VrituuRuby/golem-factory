@@ -34,11 +34,11 @@ func _ready() -> void:
 				holding_item_position.add_child(mesh)
 		else:
 			for child in holding_item_position.get_children():
-				holding_item_position.queue_free()
+				child.queue_free()
 	)
 
 func _process(delta: float) -> void:
-	info_label.visible = false
+	# info_label.visible = false
 	if not is_on_floor():
 		velocity.y -= 12 * delta
 
@@ -49,9 +49,10 @@ func _process(delta: float) -> void:
 
 	if extra_tooltip_labels.size() > 0:
 		info_label.text = "!"
-		info_label.visible = true
+		# info_label.visible = true
 	else:
-		info_label.visible = false
+		# info_label.visible = false
+		pass
 	
 	move_and_slide()
 
@@ -60,7 +61,6 @@ func move_to(target: Vector3) -> void:
 	desired_direction.y = 0;
 
 	velocity = desired_direction.normalized() * SPEED
-	print(velocity)
 	if desired_direction.length() > 0.1:
 		look_at(global_position + desired_direction.normalized(), Vector3.UP)
 
